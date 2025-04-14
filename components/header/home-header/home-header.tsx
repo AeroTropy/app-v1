@@ -7,7 +7,7 @@ import ConnectWalletButton from '@/components/features/web3/connect-wallet-butto
 function HomeHeader() {
 	return (
 		<div className={styles['home-header-con']}>
-			<div className={cn(styles['home-header'], 'px-10 desktop:px-0')}>
+			<div className={cn(styles['home-header'])}>
 				<div className={styles['header-text']}>
 					<Text.Semibold24>AeroTropy</Text.Semibold24>
 				</div>

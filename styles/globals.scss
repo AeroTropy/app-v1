@@ -86,15 +86,23 @@
 	--text-primary: oklch(0.29 0 0);
 	--text-secondary: oklch(0.4 0.0338 278.1);
 
+	// header
+	--header-bg: hsla(0, 0%, 100%, 0.502);
+	--header-border: hsl(0, 0%, 100%);
+
 	// font size
 	--font-size-xsm: 13px;
 
 	// button
 	--connect-btn-bg: linear-gradient(to bottom right, #4c4c4c, #2c2c2c);
-
+	--connect-btn-color: hsl(0, 0%, 94%);
 	// sizes
 	--max-width: 1280px;
-	--header-height: 88px;
+	--header-height: 64px;
+
+	// modal
+	--modal-bg: hsla(0, 0%, 100%, 0.502);
+	--modal-border: hsl(0, 0%, 100%);
 }
 
 .dark {

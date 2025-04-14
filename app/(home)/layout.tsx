@@ -7,7 +7,7 @@ function layout({ children }: { children: React.ReactNode }) {
 		<section className='relative'>
 			<GradientHome />
 			<HomeHeader />
-			<div className='max-w-max-width m-auto pt-5'>{children}</div>
+			<div className='max-w-max-width m-auto pt-10'>{children}</div>
 		</section>
 	);
 }

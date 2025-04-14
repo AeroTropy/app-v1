@@ -34,7 +34,6 @@ function Web3Provider({
 						},
 						wallet: {
 							display: 'modal',
-
 							supportedWallets: {
 								frame: true,
 								trust: true,

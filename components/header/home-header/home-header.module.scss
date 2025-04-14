@@ -2,9 +2,9 @@
 
 .home-header-con {
 	position: sticky;
-	top: 0;
-	z-index: 1000;
-	backdrop-filter: blur(10px);
+	top: 20px;
+	z-index: 30;
+	padding: 0 20px;
 }
 .home-header {
 	max-width: var(--max-width);
@@ -13,6 +13,12 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	backdrop-filter: blur(10px);
+	background: var(--header-bg);
+	padding: 4px 16px;
+	border: 2px solid var(--header-border);
+	border-radius: 20px;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .header-text {

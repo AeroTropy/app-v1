@@ -4,7 +4,6 @@ import {
 	ConnectWallet,
 	Wallet,
 	WalletAdvancedAddressDetails,
-	WalletAdvancedTokenHoldings,
 	WalletAdvancedTransactionActions,
 	WalletAdvancedWalletActions,
 	WalletDropdown,
@@ -12,6 +11,7 @@ import {
 	WalletDropdownDisconnect,
 	WalletDropdownFundLink,
 } from '@coinbase/onchainkit/wallet';
+import { Avatar, Name } from '@coinbase/onchainkit/identity';
 import styles from './connect-wallet-button.module.scss';
 import { cn } from '@/lib/utils';
 
@@ -34,19 +34,26 @@ function CustomConnectWalletButton({
 	return (
 		<ConnectWallet
 			disconnectedLabel='Unlock Web3'
-			className={cn(styles['connect-wallet-button'], btnClassName)}
-		/>
+			className={cn(styles['connect-wallet-button'], btnClassName)}>
+			<Avatar className={styles['avatar']} />
+			<Name className={styles['name']} />
+		</ConnectWallet>
 	);
 }
 
 function CustomWalletDropdown() {
 	return (
-		<WalletDropdown>
+		<WalletDropdown
+			classNames={{
+				container: styles['wallet-dropdown'],
+				swap: {
+					swapButton: styles['swap-button'],
+				},
+			}}>
 			<WalletAdvancedWalletActions />
 			<WalletAdvancedAddressDetails />
 			<WalletAdvancedTransactionActions />
 			<WalletDropdownBasename />
-			<WalletAdvancedTokenHoldings />
 			<WalletDropdownFundLink />
 			<WalletDropdownDisconnect />
 		</WalletDropdown>
