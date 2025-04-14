@@ -1,3 +1,5 @@
+@import '../../../styles/animations/animations';
+
 .home-header-con {
 	position: sticky;
 	top: 0;
@@ -11,7 +13,6 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	overflow: hidden;
 }
 
 .header-text {
