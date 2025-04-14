@@ -7,7 +7,9 @@ function HomeHeader() {
 	return (
 		<div className={styles['home-header-con']}>
 			<div className={cn(styles['home-header'], 'px-10 desktop:px-0')}>
-				<Text.Semibold24>AeroTropy</Text.Semibold24>
+				<div className={styles['header-text']}>
+					<Text.Semibold24>AeroTropy</Text.Semibold24>
+				</div>
 			</div>
 		</div>
 	);
