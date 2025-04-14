@@ -40,12 +40,13 @@
 	--radius-md: calc(var(--radius) - 2px);
 	--radius-lg: var(--radius);
 	--radius-xl: calc(var(--radius) + 4px);
+	--container-max-width: var(--max-width);
 }
 
 :root {
 	--radius: 0.625rem;
 	--background: oklch(1 0 0);
-	--foreground: oklch(0.145 0 0);
+	--foreground: oklch(0.29 0 0);
 	--card: oklch(1 0 0);
 	--card-foreground: oklch(0.145 0 0);
 	--popover: oklch(1 0 0);
@@ -75,6 +76,12 @@
 	--sidebar-accent-foreground: oklch(0.205 0 0);
 	--sidebar-border: oklch(0.922 0 0);
 	--sidebar-ring: oklch(0.708 0 0);
+	--text-primary: oklch(0.29 0 0);
+	--text-secondary: oklch(0.4 0.0338 278.1);
+
+	// sizes
+	--max-width: 1280px;
+	--header-height: 64px;
 }
 
 .dark {
