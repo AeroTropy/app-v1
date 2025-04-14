@@ -86,9 +86,15 @@
 	--text-primary: oklch(0.29 0 0);
 	--text-secondary: oklch(0.4 0.0338 278.1);
 
+	// font size
+	--font-size-xsm: 13px;
+
+	// button
+	--connect-btn-bg: linear-gradient(to bottom right, #4c4c4c, #2c2c2c);
+
 	// sizes
 	--max-width: 1280px;
-	--header-height: 68px;
+	--header-height: 88px;
 }
 
 .dark {

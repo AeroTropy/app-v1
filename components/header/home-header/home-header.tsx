@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './home-header.module.scss';
 import { Text } from '@/components/ui/typography/Text';
 import { cn } from '@/lib/utils';
-import ConnectWalletButton from '@/components/features/web3/connect-wallet-button/connect-walleter-button';
+import ConnectWalletButton from '@/components/features/web3/connect-wallet-button/connect-wallet-button';
 
 function HomeHeader() {
 	return (

@@ -28,11 +28,16 @@ function Web3Provider({
 					apiKey={ONCHAINKIT_API_KEY}
 					chain={web3DataProvider.baseChain}
 					config={{
+						appearance: {
+							name: 'AeroTropy',
+							mode: 'light',
+						},
 						wallet: {
+							display: 'modal',
+
 							supportedWallets: {
 								frame: true,
-								trust: false,
-								rabby: false,
+								trust: true,
 							},
 						},
 					}}>
