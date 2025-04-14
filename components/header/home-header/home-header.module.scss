@@ -1,4 +1,12 @@
+.home-header-con {
+	position: sticky;
+	top: 0;
+}
 .home-header {
+	max-width: var(--max-width);
+	margin-inline: auto;
 	height: var(--header-height);
-	padding: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 }

@@ -41,6 +41,14 @@
 	--radius-lg: var(--radius);
 	--radius-xl: calc(var(--radius) + 4px);
 	--container-max-width: var(--max-width);
+	--color-text-primary: var(--text-primary);
+	--color-text-secondary: var(--text-secondary);
+
+	// breakpoints
+
+	--breakpoint-laptop: 1024px;
+	--breakpoint-tablet: 768px;
+	--breakpoint-desktop: 1280px;
 }
 
 :root {
@@ -81,7 +89,7 @@
 
 	// sizes
 	--max-width: 1280px;
-	--header-height: 64px;
+	--header-height: 68px;
 }
 
 .dark {

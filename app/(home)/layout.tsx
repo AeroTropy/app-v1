@@ -4,10 +4,10 @@ import React from 'react';
 
 function layout({ children }: { children: React.ReactNode }) {
 	return (
-		<section className='relative max-w-max-width m-auto'>
+		<section className='relative'>
 			<GradientHome />
 			<HomeHeader />
-			{children}
+			<div className='max-w-max-width m-auto'>{children}</div>
 		</section>
 	);
 }
