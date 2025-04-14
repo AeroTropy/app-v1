@@ -1,9 +1,27 @@
 'use client';
 import React from 'react';
-import { Wallet } from '@coinbase/onchainkit/wallet';
+import {
+	ConnectWallet,
+	Wallet,
+	WalletAdvancedAddressDetails,
+	WalletAdvancedTokenHoldings,
+	WalletAdvancedTransactionActions,
+	WalletAdvancedWalletActions,
+	WalletDropdown,
+} from '@coinbase/onchainkit/wallet';
 
 function ConnectWalletButton() {
-	return <Wallet />;
+	return (
+		<Wallet>
+			<ConnectWallet />
+			<WalletDropdown>
+				<WalletAdvancedWalletActions />
+				<WalletAdvancedAddressDetails />
+				<WalletAdvancedTransactionActions />
+				<WalletAdvancedTokenHoldings />
+			</WalletDropdown>
+		</Wallet>
+	);
 }
 
 export default ConnectWalletButton;

@@ -26,7 +26,16 @@ function Web3Provider({
 			<QueryClientProvider client={queryClient}>
 				<OnchainKitProvider
 					apiKey={ONCHAINKIT_API_KEY}
-					chain={web3DataProvider.baseChain}>
+					chain={web3DataProvider.baseChain}
+					config={{
+						wallet: {
+							supportedWallets: {
+								frame: true,
+								trust: false,
+								rabby: false,
+							},
+						},
+					}}>
 					{children}
 				</OnchainKitProvider>
 			</QueryClientProvider>

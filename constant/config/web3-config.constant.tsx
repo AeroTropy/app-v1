@@ -15,8 +15,7 @@ export const initializeWeb3Config = (web3Provider: Web3DataProvider) => {
 		connectors: [
 			coinbaseWallet({
 				appName: 'OnchainKit',
-				preference: 'smartWalletOnly',
-				version: '4',
+				preference: 'all',
 			}),
 		],
 		storage: createStorage({
