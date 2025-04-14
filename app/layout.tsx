@@ -7,6 +7,7 @@ import { ThemeAndLanguageProvider } from '@/context/theme-language.context';
 import { getCookie } from 'cookies-next/server';
 import { APP_THEME_KEY } from '@/constant/storage-keys.constant';
 import { AppTheme } from '@/types/theme';
+import '@coinbase/onchainkit/styles.css';
 
 const inter = Inter({
 	variable: '--font-inter',
