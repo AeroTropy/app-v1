@@ -30,6 +30,7 @@ const paragraphVariants = cva('text-text-primary', {
 			36: 'text-4xl',
 			40: 'text-[40px]',
 			48: 'text-5xl',
+			72: 'text-[72px]',
 		},
 	},
 	defaultVariants: {
