@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import './animations/animations';
 // @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -42,6 +43,7 @@
 	--container-max-width: var(--max-width);
 	--color-text-primary: var(--text-primary);
 	--color-text-secondary: var(--text-secondary);
+	--color-text-light: var(--text-light);
 
 	// breakpoints
 
@@ -83,8 +85,11 @@
 	--sidebar-accent-foreground: oklch(0.205 0 0);
 	--sidebar-border: oklch(0.922 0 0);
 	--sidebar-ring: oklch(0.708 0 0);
+
+	// text color
 	--text-primary: oklch(0.29 0 0);
 	--text-secondary: oklch(0.4 0.0338 278.1);
+	--text-light: hsl(0, 0%, 55%);
 
 	// header
 	--header-bg: hsla(0, 0%, 100%, 0.502);
@@ -103,6 +108,11 @@
 	// modal
 	--modal-bg: hsla(0, 0%, 100%, 0.502);
 	--modal-border: hsl(0, 0%, 100%);
+
+	// inputs
+	--home-input-bg: hsl(0, 0%, 100%, 0.66);
+	--home-input-color: var(--text-secondary);
+	--home-input-border: hsl(0, 0%, 100%);
 }
 
 .dark {
