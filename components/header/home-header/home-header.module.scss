@@ -21,9 +21,14 @@
 	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
-.header-text {
+.header-text,
+.connect-wallet {
 	animation: popup 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 	animation-delay: 0.2s; /* Small delay before animation starts */
 	transform: translateY(100%); /* Initial state */
 	opacity: 0; /* Initial state */
+}
+
+.connect-wallet {
+	animation-delay: 0.4s;
 }

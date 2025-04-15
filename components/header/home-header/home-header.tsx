@@ -11,7 +11,9 @@ function HomeHeader() {
 				<div className={styles['header-text']}>
 					<Text.Semibold24>AeroTropy</Text.Semibold24>
 				</div>
-				<ConnectWalletButton />
+				<div className={styles['connect-wallet']}>
+					<ConnectWalletButton />
+				</div>
 			</div>
 		</div>
 	);
