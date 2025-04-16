@@ -1,0 +1,40 @@
+.floatingAsset {
+	position: absolute;
+	z-index: 1;
+	user-select: none;
+	animation: floatY 7s ease-in-out infinite;
+	filter: drop-shadow(0 8px 36px rgba(0, 0, 0, 0.16));
+}
+
+@keyframes floatY {
+	0%,
+	100% {
+		transform: translateY(0px) scale(1.08);
+	}
+	50% {
+		transform: translateY(-32px) scale(1.18);
+	}
+}
+
+.img,
+.img-abs {
+	opacity: 1;
+	user-select: none;
+	filter: blur(6px);
+	transition: all 0.3s ease-in-out;
+}
+.img {
+	&:hover {
+		opacity: 1;
+		filter: blur(0px);
+		transform: rotate(10deg);
+		z-index: 100;
+	}
+}
+.img-abs {
+	filter: blur(20px);
+	position: absolute;
+	z-index: -1;
+	top: 0;
+	left: 0;
+}

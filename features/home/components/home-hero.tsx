@@ -1,6 +1,7 @@
 import React from 'react';
 import SplitTextAnimation from '@/components/animation/split-text/split-text.animation';
 import HomeInputWrapper from '@/components/container/home-input/home-input-wrapper';
+import FloatingAssets from './floating-assets/floating-assets';
 import { MotionValue, useTransform, motion } from 'framer-motion';
 
 function HomeHero({
@@ -16,7 +17,8 @@ function HomeHero({
 		<motion.div
 			style={{ scale, rotate }}
 			className='sticky top-0 h-screen w-screen flex flex-col items-center justify-center gap-10 -z-1'>
-			<div className='flex flex-col gap-2 items-center'>
+			<FloatingAssets />
+			<div className='flex flex-col gap-2 items-center relative z-0'>
 				<SplitTextAnimation
 					parentClassName='flex justify-center flex-wrap max-w-[700px] '
 					text='All crypto finance, right here.'
