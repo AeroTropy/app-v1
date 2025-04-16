@@ -8,7 +8,7 @@ function HomeSecondSection({
 }) {
 	const scale = useTransform(scrollYProgress, [0, 1], [0.9, 1]);
 	const y = useTransform(scrollYProgress, [0, 1], [-100, 0]);
-	const borderRadius = useTransform(scrollYProgress, [0, 1], [50, 10]);
+	const borderRadius = useTransform(scrollYProgress, [0, 1], [50, 20]);
 	const padding = useTransform(scrollYProgress, [0, 1], [0, 5]);
 
 	return (

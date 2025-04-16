@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 @import './animations/animations';
+@import './utils/utils';
 // @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -163,7 +164,6 @@
 		min-height: 100vh;
 		width: 100vw;
 		overflow-x: hidden;
-		scrollbar-width: none;
 		&::-webkit-scrollbar {
 			display: none;
 		}
