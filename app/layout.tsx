@@ -9,6 +9,7 @@ import { APP_THEME_KEY } from '@/constant/storage-keys.constant';
 import { AppTheme } from '@/types/theme';
 import '@coinbase/onchainkit/styles.css';
 import { Web3UserProvider } from '@/context/web3-user.context';
+import SmoothScroll from '@/components/utils/SmoothScroll';
 
 const inter = Inter({
 	variable: '--font-inter',
@@ -31,9 +32,11 @@ export default async function RootLayout({
 			className={`${inter.variable} antialiased`}>
 			<ThemeAndLanguageProvider
 				defaultTheme={(userPrefTheme || AppTheme.LIGHT) as AppTheme}>
-				<Web3Provider cookie={wagmiCookie}>
-					<Web3UserProvider>{children}</Web3UserProvider>
-				</Web3Provider>
+				<SmoothScroll>
+					<Web3Provider cookie={wagmiCookie}>
+						<Web3UserProvider>{children}</Web3UserProvider>
+					</Web3Provider>
+				</SmoothScroll>
 			</ThemeAndLanguageProvider>
 		</html>
 	);

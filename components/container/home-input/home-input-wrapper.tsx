@@ -56,7 +56,6 @@ function HomeInputWrapper({
 	 * Handles the typing/deleting animation for the placeholder text
 	 */
 	const animatePlaceholderText = useCallback(() => {
-		console.log('animatePlaceholderText');
 		const currentSuggestion = PLACEHOLDER_SUGGESTIONS[suggestionIndex];
 
 		// If text is empty and we're in delete phase, move to next suggestion

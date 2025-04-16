@@ -4,11 +4,11 @@ import React from 'react';
 
 function layout({ children }: { children: React.ReactNode }) {
 	return (
-		<section className='relative'>
+		<div className='relative'>
 			<GradientHome />
 			<HomeHeader />
-			<div className='max-w-max-width m-auto pt-10'>{children}</div>
-		</section>
+			{children}
+		</div>
 	);
 }
 
