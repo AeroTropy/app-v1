@@ -14,6 +14,7 @@ import {
 import { Avatar, Name } from '@coinbase/onchainkit/identity';
 import styles from './connect-wallet-button.module.scss';
 import { cn } from '@/lib/utils';
+import { useWeb3User } from '@/context/web3-user.context';
 
 interface ConnectWalletButtonProps {
 	btnClassName?: string;
@@ -31,11 +32,15 @@ function ConnectWalletButton({ btnClassName }: ConnectWalletButtonProps) {
 function CustomConnectWalletButton({
 	btnClassName,
 }: Partial<ConnectWalletButtonProps>) {
+	const { address } = useWeb3User();
 	return (
 		<ConnectWallet
 			disconnectedLabel='Unlock Web3'
 			className={cn(styles['connect-wallet-button'], btnClassName)}>
-			<Avatar className={styles['avatar']} />
+			<Avatar
+				className={styles['avatar']}
+				address={address}
+			/>
 			<Name className={styles['name']} />
 		</ConnectWallet>
 	);

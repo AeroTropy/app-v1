@@ -1,9 +1,10 @@
 'use client';
+import { Web3Address } from '@/types/web3/web3.types';
 import React from 'react';
 import { useAccount } from 'wagmi';
 
 interface Web3UserContextType {
-	address: string | null;
+	address: Web3Address | null;
 }
 
 const Web3UserContext = React.createContext<Web3UserContextType | null>(null);
