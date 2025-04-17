@@ -10,27 +10,27 @@ import styles from './floating-assets.module.scss';
 const CORNERS = [
 	{
 		name: 'topLeft',
-		style: { top: '50px', left: '30px', animationDelay: '-2s' },
-		width: 230,
-		height: 230,
+		style: { top: '100px', left: '100px', animationDelay: '-2s' },
+		width: 150,
+		height: 150,
 	},
 	{
 		name: 'topRight',
-		style: { top: '100px', right: '50px', animationDelay: '4s' },
-		width: 190,
-		height: 190,
+		style: { top: '100px', right: '100px', animationDelay: '-4s' },
+		width: 150,
+		height: 150,
 	},
 	{
 		name: 'bottomLeft',
-		style: { bottom: '50px', left: '100px', animationDelay: '-6s' },
-		width: 210,
-		height: 210,
+		style: { bottom: '100px', left: '160px', animationDelay: '-6s' },
+		width: 140,
+		height: 140,
 	},
 	{
 		name: 'bottomRight',
-		style: { bottom: '100px', right: '100px' },
-		width: 250,
-		height: 250,
+		style: { bottom: '100px', right: '160px' },
+		width: 160,
+		height: 160,
 	},
 ];
 

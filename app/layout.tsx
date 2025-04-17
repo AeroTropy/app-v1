@@ -10,6 +10,7 @@ import { AppTheme } from '@/types/theme';
 import '@coinbase/onchainkit/styles.css';
 import { Web3UserProvider } from '@/context/web3-user.context';
 import SmoothScroll from '@/components/utils/SmoothScroll';
+import { ViewTransitions } from 'next-view-transitions';
 
 const inter = Inter({
 	variable: '--font-inter',
@@ -27,17 +28,21 @@ export default async function RootLayout({
 	const wagmiCookie = (await headers()).get('cookie');
 
 	return (
-		<html
-			lang='en'
-			className={`${inter.variable} antialiased`}>
-			<ThemeAndLanguageProvider
-				defaultTheme={(userPrefTheme || AppTheme.LIGHT) as AppTheme}>
-				<SmoothScroll>
-					<Web3Provider cookie={wagmiCookie}>
-						<Web3UserProvider>{children}</Web3UserProvider>
-					</Web3Provider>
-				</SmoothScroll>
-			</ThemeAndLanguageProvider>
-		</html>
+		<ViewTransitions>
+			<html
+				lang='en'
+				className={`${inter.variable} antialiased`}>
+				<ThemeAndLanguageProvider
+					defaultTheme={
+						(userPrefTheme || AppTheme.LIGHT) as AppTheme
+					}>
+					<SmoothScroll>
+						<Web3Provider cookie={wagmiCookie}>
+							<Web3UserProvider>{children}</Web3UserProvider>
+						</Web3Provider>
+					</SmoothScroll>
+				</ThemeAndLanguageProvider>
+			</html>
+		</ViewTransitions>
 	);
 }
