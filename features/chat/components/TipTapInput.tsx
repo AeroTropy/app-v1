@@ -43,7 +43,10 @@ const TipTapInput: React.FC<TipTapInputProps> = ({ onSend, loading }) => {
 			<div
 				className={styles.tiptapInput}
 				onKeyDown={handleKeyDown}>
-				<EditorContent editor={editor} />
+				<EditorContent
+					editor={editor}
+					className='w-full'
+				/>
 			</div>
 			<button
 				className={styles.sendButton}

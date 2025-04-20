@@ -1,10 +1,9 @@
 'use client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useChat } from '@ai-sdk/react';
 import ChatMessages from './components/ChatMessages';
 import ChatInput from './components/ChatInput';
 import styles from './chat.module.scss';
-import type { ChatMessageType } from './types';
 
 const API_URL = '/chat/api';
 
@@ -25,16 +24,14 @@ const ChatView: React.FC<{ initialText?: string }> = ({ initialText }) => {
 		}
 	);
 
-	// Map AI SDK messages to ChatMessageType for ChatMessages component
-	const mappedMessages: ChatMessageType[] = messages.map((msg) => ({
-		message: msg.content,
-		from: msg.role === 'user' ? 'user' : 'ai',
-		timestamp: new Date().toLocaleTimeString(),
-	}));
+	// Use messages directly from AI SDK
+	useEffect(() => {
+		console.log('ChatView received messages from useChat:', messages);
+	}, [messages]);
 
 	return (
 		<div className={styles.chatContainer}>
-			<ChatMessages messages={mappedMessages} />
+			<ChatMessages messages={messages} />
 			{error && (
 				<div className={styles.errorState}>
 					{typeof error === 'string' ? error : error.message}

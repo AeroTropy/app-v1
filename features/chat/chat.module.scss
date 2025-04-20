@@ -109,6 +109,7 @@ $shadow: 0 6px 32px 0 rgba(0, 0, 0, 0.18);
 	display: flex;
 	gap: 0.7rem;
 	margin-top: 1.2rem;
+	align-items: flex-end;
 }
 
 .chatInput {
@@ -145,6 +146,46 @@ $shadow: 0 6px 32px 0 rgba(0, 0, 0, 0.18);
 
 .sendButton:active {
 	transform: scale(0.97);
+}
+
+.tiptapInput {
+	flex: 1;
+	background: rgba(255, 255, 255, 0.07);
+	border-radius: 1.2em;
+	padding: 0.7rem 1.1rem;
+	min-height: 2.2em;
+	max-height: 8em;
+	color: #fff;
+	font-size: 1rem;
+	box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.09);
+	margin-right: 0.5rem;
+	overflow-y: auto;
+	outline: none;
+	border: none;
+	transition: background 0.18s;
+	display: flex;
+	align-items: center;
+}
+
+.tiptapInput:focus-within {
+	background: rgba(255, 255, 255, 0.12);
+}
+
+.tiptapInput .ProseMirror {
+	background: transparent;
+	outline: none;
+	color: #fff;
+	font-size: 1rem;
+	min-height: 1.2em;
+	max-height: 8em;
+	padding: 0;
+	margin: 0;
+	word-break: break-word;
+}
+
+.tiptapInput .ProseMirror:empty:before {
+	color: #aaa;
+	font-style: italic;
 }
 
 .sendButton:disabled {
