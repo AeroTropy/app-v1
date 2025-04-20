@@ -15,7 +15,6 @@ const TipTapMessage: React.FC<TipTapMessageProps> = ({ message }) => {
 		extensions: [StarterKit],
 		content: message.content,
 		editable: false,
-		immediatelyRender: true,
 	});
 
 	useEffect(() => {

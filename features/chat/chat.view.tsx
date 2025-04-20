@@ -1,16 +1,18 @@
 'use client';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useChat } from '@ai-sdk/react';
 import ChatMessages from './components/ChatMessages';
 import ChatInput from './components/ChatInput';
 import styles from './chat.module.scss';
-
-const API_URL = '/chat/api';
+import { ENDPOINTS } from '@/constant/api/endpoints.constant';
+import { useWeb3User } from '@/context/web3-user.context';
 
 const ChatView: React.FC<{ initialText?: string }> = ({ initialText }) => {
+	const { address } = useWeb3User();
 	const { messages, input, handleSubmit, isLoading, error, append } = useChat(
 		{
-			api: API_URL,
+			api: ENDPOINTS.CHAT.POST,
+			body: { walletAddress: address || '' },
 			initialMessages:
 				initialText ?
 					[
@@ -23,11 +25,6 @@ const ChatView: React.FC<{ initialText?: string }> = ({ initialText }) => {
 				:	[],
 		}
 	);
-
-	// Use messages directly from AI SDK
-	useEffect(() => {
-		console.log('ChatView received messages from useChat:', messages);
-	}, [messages]);
 
 	return (
 		<div className={styles.chatContainer}>

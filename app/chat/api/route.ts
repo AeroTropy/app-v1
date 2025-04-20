@@ -24,6 +24,6 @@ export async function POST(req: Request) {
 		system: getSystemPrompt(walletAddress),
 		maxSteps: 10,
 	});
-	console.log('Result:', result);
+
 	return result.toDataStreamResponse();
 }
