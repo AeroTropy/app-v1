@@ -28,13 +28,23 @@ const ChatView: React.FC<{ initialText?: string }> = ({ initialText }) => {
 
 	return (
 		<div className={styles.chatContainer}>
-			<ChatMessages messages={messages} />
+			<div className={styles.chatHeader}>
+				<h2 className={styles.headerTitle}>AeroTropy AI Assistant</h2>
+				{address && <div className={styles.walletConnected}>Wallet Connected: {address.slice(0, 6)}...{address.slice(-4)}</div>}
+			</div>
+			
+			<div className={styles.chatContent}>
+				<ChatMessages messages={messages} />
+			</div>
+			
 			{error && (
 				<div className={styles.errorState}>
 					{typeof error === 'string' ? error : error.message}
 				</div>
 			)}
+			
 			<form
+				className={styles.chatForm}
 				onSubmit={(e) => {
 					e.preventDefault();
 					if (input.trim()) handleSubmit();

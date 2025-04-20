@@ -1,47 +1,47 @@
 @use 'sass:color';
 
-$glass-bg: rgba(40, 40, 50, 0.6);
-$glass-blur: 18px;
-$gradient: linear-gradient(135deg, #4c4c4c 0%, #232946 100%);
-$ai-gradient: linear-gradient(135deg, #3a8dde 0%, #5efce8 100%);
-$user-gradient: linear-gradient(135deg, #fcb045 0%, #fd1d1d 100%);
-$border-radius: 18px;
-$shadow: 0 6px 32px 0 rgba(0, 0, 0, 0.18);
-
 .chatContainer {
-	background: $glass-bg;
-	backdrop-filter: blur($glass-blur);
-	border-radius: $border-radius;
-	box-shadow: $shadow;
-	padding: 1.5rem;
-	max-width: 480px;
+	background: var(--card);
+	border-radius: var(--radius-lg);
+	box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+	padding: 1.5rem 2rem;
+	width: 100%;
+	max-width: 1024px;
 	margin: 2rem auto;
 	display: flex;
 	flex-direction: column;
-	min-height: 60vh;
-	border: 1.5px solid color.change($glass-bg, $alpha: 0.3);
+	min-height: 75vh;
+	border: 1px solid var(--border);
 }
 
 .chatHeader {
 	display: flex;
 	align-items: center;
-	gap: 0.75rem;
+	justify-content: space-between;
 	margin-bottom: 1.5rem;
-	background: $gradient;
-	border-radius: $border-radius;
-	padding: 0.75rem 1.2rem;
-	box-shadow: 0 2px 18px 0 rgba(44, 44, 44, 0.12);
+	background: var(--primary);
+	border-radius: var(--radius);
+	padding: 1rem 1.5rem;
+	box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
 }
 
 .headerIcon {
-	color: #5efce8;
+	color: var(--primary-foreground);
 }
 
 .headerTitle {
-	color: #fff;
+	color: var(--primary-foreground);
 	font-size: 1.25rem;
 	font-weight: 600;
 	letter-spacing: 0.03em;
+	margin: 0;
+}
+
+.chatContent {
+	flex: 1;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
 }
 
 .chatMessagesWrapper {
@@ -56,9 +56,10 @@ $shadow: 0 6px 32px 0 rgba(0, 0, 0, 0.18);
 
 .emptyState {
 	text-align: center;
-	color: #aaa;
+	color: var(--muted-foreground);
 	font-style: italic;
-	margin-top: 2.5rem;
+	margin-top: 4rem;
+	font-size: 1.1rem;
 }
 
 .chatMessage {
@@ -71,8 +72,8 @@ $shadow: 0 6px 32px 0 rgba(0, 0, 0, 0.18);
 .user {
 	justify-content: flex-end;
 	.messageBubble {
-		background: $user-gradient;
-		color: #fff;
+		background: var(--primary);
+		color: var(--primary-foreground);
 		align-self: flex-end;
 	}
 }
@@ -80,17 +81,17 @@ $shadow: 0 6px 32px 0 rgba(0, 0, 0, 0.18);
 .ai {
 	justify-content: flex-start;
 	.messageBubble {
-		background: $ai-gradient;
-		color: #222;
+		background: var(--secondary);
+		color: var(--secondary-foreground);
 		align-self: flex-start;
 	}
 }
 
 .messageBubble {
 	padding: 0.85rem 1.2rem;
-	border-radius: 1.2em;
-	box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.12);
-	font-size: 1.07rem;
+	border-radius: var(--radius);
+	box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06);
+	font-size: 1rem;
 	max-width: 75%;
 	word-break: break-word;
 	position: relative;
@@ -100,48 +101,55 @@ $shadow: 0 6px 32px 0 rgba(0, 0, 0, 0.18);
 .timestamp {
 	display: block;
 	font-size: 0.75rem;
-	color: #aaa;
+	color: var(--muted-foreground);
 	margin-top: 0.2rem;
 	text-align: right;
+}
+
+.chatForm {
+	margin-top: 1.2rem;
+	border-top: 1px solid var(--border);
+	padding-top: 1.2rem;
 }
 
 .chatInputContainer {
 	display: flex;
 	gap: 0.7rem;
-	margin-top: 1.2rem;
 	align-items: flex-end;
 }
 
 .chatInput {
 	flex: 1;
 	padding: 0.8rem 1.1rem;
-	border-radius: 1.2em;
-	border: none;
-	background: rgba(255, 255, 255, 0.07);
-	color: #fff;
+	border-radius: var(--radius);
+	border: 1px solid var(--border);
+	background: var(--input);
+	color: var(--foreground);
 	font-size: 1rem;
 	outline: none;
-	box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.09);
-	transition: background 0.18s;
+	transition: border-color 0.18s;
+	&:focus {
+		border-color: var(--primary);
+	}
 }
 
 .chatInput:disabled {
-	background: rgba(255, 255, 255, 0.03);
-	color: #888;
+	background: var(--muted);
+	color: var(--muted-foreground);
 }
 
 .sendButton {
 	padding: 0.7rem 1.2rem;
-	border-radius: 1.2em;
-	background: $gradient;
-	color: #fff;
+	border-radius: var(--radius);
+	background: var(--primary);
+	color: var(--primary-foreground);
 	font-weight: 500;
 	border: none;
 	cursor: pointer;
-	box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.09);
-	transition:
-		transform 0.13s,
-		box-shadow 0.13s;
+	transition: opacity 0.13s;
+	&:hover {
+		opacity: 0.9;
+	}
 }
 
 .sendButton:active {
@@ -150,46 +158,46 @@ $shadow: 0 6px 32px 0 rgba(0, 0, 0, 0.18);
 
 .tiptapInput {
 	flex: 1;
-	background: rgba(255, 255, 255, 0.07);
-	border-radius: 1.2em;
+	background: var(--input);
+	border-radius: var(--radius);
 	padding: 0.7rem 1.1rem;
 	min-height: 2.2em;
 	max-height: 8em;
-	color: #fff;
+	color: var(--foreground);
 	font-size: 1rem;
-	box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.09);
 	margin-right: 0.5rem;
 	overflow-y: auto;
 	outline: none;
-	border: none;
-	transition: background 0.18s;
+	border: 1px solid var(--border);
+	transition: border-color 0.18s;
 	display: flex;
 	align-items: center;
 }
 
 .tiptapInput:focus-within {
-	background: rgba(255, 255, 255, 0.12);
+	border-color: var(--primary);
 }
 
 .tiptapInput .ProseMirror {
 	background: transparent;
 	outline: none;
-	color: #fff;
+	color: var(--foreground);
 	font-size: 1rem;
 	min-height: 1.2em;
 	max-height: 8em;
 	padding: 0;
 	margin: 0;
 	word-break: break-word;
+	width: 100%;
 }
 
 .tiptapInput .ProseMirror:empty:before {
-	color: #aaa;
+	color: var(--muted-foreground);
 	font-style: italic;
 }
 
 .sendButton:disabled {
-	background: rgba(44, 44, 44, 0.18);
-	color: #aaa;
+	background: var(--muted);
+	color: var(--muted-foreground);
 	cursor: not-allowed;
 }
