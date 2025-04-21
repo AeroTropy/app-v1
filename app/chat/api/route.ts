@@ -1,7 +1,9 @@
 import { streamText } from 'ai';
-import { google } from '@ai-sdk/google';
 import { NextResponse } from 'next/server';
-import { agentKitConfig } from './chat-api-route.constant';
+import {
+	agentKitConfig,
+	getCurrentVercelModel,
+} from './chat-api-route.constant';
 
 export async function POST(req: Request) {
 	const { tools, getSystemPrompt } = agentKitConfig;
@@ -18,7 +20,7 @@ export async function POST(req: Request) {
 	}
 
 	const result = streamText({
-		model: google('gemini-2.5-pro-exp-03-25'),
+		model: getCurrentVercelModel(),
 		messages,
 		tools,
 		system: getSystemPrompt(walletAddress),

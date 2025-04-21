@@ -1,5 +1,7 @@
 import { AgentKit } from '@coinbase/agentkit';
 import { getVercelAITools } from '@coinbase/agentkit-vercel-ai-sdk';
+import { google } from '@ai-sdk/google';
+import { anthropic } from '@ai-sdk/anthropic';
 
 const agentKit = await AgentKit.from({
 	cdpApiKeyName: process.env.CDP_API_KEY_NAME,
@@ -7,6 +9,16 @@ const agentKit = await AgentKit.from({
 });
 
 const tools = getVercelAITools(agentKit);
+
+const VERCEL_SELECTED_MODEL = process.env.VERCEL_AI_MODEL || 'google';
+
+const VERCEL_MODELS = {
+	google: google('gemini-2.5-pro-exp-03-25'),
+	anthropic: anthropic('claude-3-7-sonnet-20250219'),
+};
+
+export const getCurrentVercelModel = () =>
+	VERCEL_MODELS[VERCEL_SELECTED_MODEL as keyof typeof VERCEL_MODELS];
 
 const getSystemPrompt = (
 	walletAddress: string

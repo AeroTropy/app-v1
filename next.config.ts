@@ -5,6 +5,8 @@ const nextConfig: NextConfig = {
 	serverExternalPackages: [
 		'@coinbase/agentkit',
 		'@coinbase/agentkit-vercel-ai-sdk',
+		'@ai-sdk/google',
+		'@ai-sdk/anthropic',
 	],
 };
 
