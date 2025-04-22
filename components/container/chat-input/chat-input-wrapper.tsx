@@ -1,7 +1,11 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import styles from './chat-input-wrapper.module.scss';
+import { X } from 'lucide-react';
+import ChatView from '@/features/chat/chat.view';
+import { AnimatePresence, motion } from 'framer-motion';
+import ChatInputCta from './sub-comp/chat-input-cta';
 import { cn } from '@/lib/utils';
-import { Bot, MessageCircleMore } from 'lucide-react';
+
 /**
  * Props for the HomeInputWrapper component
  */
@@ -11,129 +15,71 @@ interface ChatInputWrapperProps {
 }
 
 /**
- * Animation timing constants (in milliseconds)
- */
-const ANIMATION_TIMING = {
-	TYPING: 80,
-	PAUSE_BEFORE_DELETE: 1000,
-	INITIAL_DELAY: 100,
-} as const;
-
-/**
- * Placeholder suggestions that will rotate in the input
- */
-const PLACEHOLDER_SUGGESTIONS = [
-	'invest my money',
-	'choose a vault for me',
-	'what is my risk appetite',
-];
-
-/**
  * A component that displays an input field with animated placeholder text
  * that cycles through different suggestions.
  */
 function ChatInputWrapper({ className }: ChatInputWrapperProps) {
 	// State for the animated placeholder text
-	const [placeholderText, setPlaceholderText] = useState<string>(
-		PLACEHOLDER_SUGGESTIONS[0]
-	);
-	const [suggestionIndex, setSuggestionIndex] = useState<number>(0);
-	const [isTypingPhase, setIsTypingPhase] = useState<boolean>(false);
-	const [animationSpeed, setAnimationSpeed] = useState<number>(
-		ANIMATION_TIMING.INITIAL_DELAY
-	);
 
-	// Reference to the animation interval
-	const animationIntervalRef = useRef<NodeJS.Timeout | null>(null);
+	// State for modal open/close
+	const [isModalOpen, setIsModalOpen] = useState(false);
 
-	/**
-	 * Handles the typing/deleting animation for the placeholder text
-	 */
-	const animatePlaceholderText = useCallback(() => {
-		const currentSuggestion = PLACEHOLDER_SUGGESTIONS[suggestionIndex];
+	// Toggle chat modal
+	const toggleModal = () => {
+		setIsModalOpen(!isModalOpen);
+	};
 
-		// If text is empty and we're in delete phase, move to next suggestion
-		if (placeholderText === '' && !isTypingPhase) {
-			setSuggestionIndex(
-				(prev) => (prev + 1) % PLACEHOLDER_SUGGESTIONS.length
-			);
-			setIsTypingPhase(true);
-			setAnimationSpeed(ANIMATION_TIMING.TYPING);
-			return;
-		}
-
-		// If text is complete and we're in typing phase, pause then start deleting
-		if (placeholderText === currentSuggestion && isTypingPhase) {
-			setIsTypingPhase(false);
-			setAnimationSpeed(ANIMATION_TIMING.PAUSE_BEFORE_DELETE);
-			return;
-		}
-
-		// Set animation speed for typing/deleting
-		setAnimationSpeed(ANIMATION_TIMING.TYPING);
-
-		// Either add or remove characters based on phase
-		if (isTypingPhase) {
-			// Add next character from the current suggestion
-			setPlaceholderText((prev) => prev + currentSuggestion[prev.length]);
-		} else {
-			// Remove last character
-			setPlaceholderText((prev) => prev.slice(0, -1));
-		}
-	}, [suggestionIndex, placeholderText, isTypingPhase]);
-
-	/**
-	 * Start the animation interval
-	 */
-	const startAnimationInterval = useCallback(() => {
-		// Clear any existing interval first
-		if (animationIntervalRef.current) {
-			clearInterval(animationIntervalRef.current);
-		}
-
-		// Start a new interval
-		animationIntervalRef.current = setInterval(
-			animatePlaceholderText,
-			animationSpeed
-		);
-	}, [animatePlaceholderText, animationSpeed]);
-
-	/**
-	 * Stop the animation interval
-	 */
-	const stopAnimationInterval = useCallback(() => {
-		if (animationIntervalRef.current) {
-			clearInterval(animationIntervalRef.current);
-			animationIntervalRef.current = null;
-		}
-	}, []);
-
-	useEffect(() => {
-		startAnimationInterval();
-		return () => {
-			stopAnimationInterval();
-		};
-	}, [startAnimationInterval, stopAnimationInterval]);
+	const variants = {
+		open: {
+			width: '80vw',
+			height: '80vh',
+		},
+		close: {
+			width: '400px',
+			height: '80px',
+		},
+	};
 
 	return (
-		<>
-			<div
-				className={cn(styles['home-input-wrapper'], className)}
-				style={{ backdropFilter: 'blur(20px)' }}>
-				<Bot
-					size={24}
-					color='var(--text-secondary)'
-				/>
-				<div className={cn(styles['home-input-box'])}>
-					<p className={styles['home-input-placeholder']}>
-						Ask about {placeholderText}
-					</p>
-				</div>
-				<div className={styles['home-chat-icon-con']}>
-					<MessageCircleMore size={18} />
-				</div>
-			</div>
-		</>
+		<motion.div
+			className={cn(styles['home-input-wrapper'], className)}
+			style={{ backdropFilter: 'blur(14px)' }}
+			initial='close'
+			whileHover={{ scale: isModalOpen ? 1 : 1.05 }}
+			whileTap={{ scale: isModalOpen ? 1 : 0.98 }}
+			animate={isModalOpen ? 'open' : 'close'}
+			transition={{ type: 'spring', stiffness: 100 }}
+			variants={variants}>
+			<AnimatePresence>
+				{!isModalOpen && (
+					<ChatInputCta
+						isModalOpen={isModalOpen}
+						onClick={toggleModal}
+					/>
+				)}
+				{isModalOpen && (
+					<>
+						<motion.div
+							initial={{ opacity: 0, scale: 0 }}
+							animate={{ opacity: 1, scale: 1 }}
+							exit={{ opacity: 0, scale: 0 }}>
+							<ChatView />
+						</motion.div>
+						<motion.div
+							className={styles['cross-con']}
+							initial={{ opacity: 0, scale: 0 }}
+							animate={{ opacity: 1, scale: 1 }}
+							whileHover={{ rotate: '90deg' }}
+							exit={{ opacity: 0, scale: 0 }}>
+							<X
+								size={12}
+								onClick={toggleModal}
+							/>
+						</motion.div>
+					</>
+				)}
+			</AnimatePresence>
+		</motion.div>
 	);
 }
 

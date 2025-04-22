@@ -113,12 +113,13 @@
 	--modal-border: hsl(0, 0%, 100%);
 
 	// inputs
-	--home-input-bg: hsl(0, 0%, 100%, 0.702);
-	--home-input-color: var(--text-secondary);
-	--home-input-border: hsl(0, 0%, 100%);
-
+	--home-input-bg: hsla(0, 0%, 5%, 0.702);
+	--home-input-color: #fff;
+	--home-input-border: hsl(0, 0%, 24%);
+	--home-input-box-bg: hsla(0, 0%, 3%, 0.6);
 	// negative bg
 	--bg-negative: hsl(0, 0%, 17%);
+	--bg-negative-secondary: hsl(0, 0%, 0%);
 	--bg-negative-foreground: hsl(0, 0%, 100%);
 }
 

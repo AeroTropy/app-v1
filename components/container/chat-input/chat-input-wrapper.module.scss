@@ -1,17 +1,22 @@
 .home-input-wrapper {
+	position: relative;
 	background: var(--home-input-bg);
-	border: 2px solid var(--home-input-border);
-	border-radius: 12px;
+	border: 1px solid var(--home-input-border);
+	border-radius: 20px;
 	height: 60px;
 	display: flex;
 	align-items: center;
 	transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
-	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 
-	padding: 0 10px;
+	padding: 0 20px;
 	gap: 8px;
 	user-select: none;
 	cursor: pointer;
+	backdrop-filter: blur(14px);
+	-webkit-backdrop-filter: blur(14px);
+	will-change: transform, backdrop-filter;
+	z-index: 10;
+	color: var(--home-input-color);
 }
 
 .home-input-box {
@@ -24,18 +29,112 @@
 		display: flex;
 		align-items: center;
 		inset: 0;
-		opacity: 0.6;
+		opacity: 0.9;
 		pointer-events: none;
 		z-index: -1;
 	}
+}
+
+.home-input-cta {
+	display: flex;
+	flex: 1;
+	align-items: center;
+	gap: 8px;
 }
 
 .home-chat-icon-con {
 	width: 36px;
 	height: 36px;
 	border-radius: 50%;
-	background: var(--bg-negative);
-	color: var(--bg-negative-foreground);
+	background: var(--home-input-box-bg);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* Modal styles */
+.modalBackdrop {
+	position: fixed;
+	inset: 0;
+	backdrop-filter: blur(4px);
+	-webkit-backdrop-filter: blur(4px);
+	z-index: 999;
+}
+
+.chatModal {
+	position: fixed;
+	bottom: 20px;
+	left: 50%;
+	transform: translateX(-50%);
+	background: var(--card);
+	border-radius: var(--radius-lg);
+	box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+	z-index: 1000;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	border: 1px solid var(--border);
+}
+
+.modalHeader {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 16px 20px;
+	border-bottom: 1px solid var(--border);
+	background: var(--primary);
+
+	h3 {
+		margin: 0;
+		color: var(--primary-foreground);
+		font-size: 1.25rem;
+		font-weight: 600;
+	}
+}
+
+.closeButton {
+	background: transparent;
+	border: none;
+	color: var(--primary-foreground);
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 8px;
+	border-radius: 50%;
+	transition: all 0.2s ease;
+
+	&:hover {
+		background: rgba(255, 255, 255, 0.1);
+	}
+}
+
+.modalContent {
+	flex: 1;
+	overflow: hidden;
+	padding: 0;
+
+	/* Override the ChatView container styles */
+	:global(.chatContainer) {
+		margin: 0;
+		padding: 0;
+		border: none;
+		box-shadow: none;
+		border-radius: 0;
+		min-height: 0;
+		height: 100%;
+	}
+}
+
+.cross-con {
+	position: absolute;
+	bottom: 10px;
+	right: -30px;
+	cursor: pointer;
+	width: 24px;
+	height: 24px;
+	border-radius: 50%;
+	background: var(--bg-negative-secondary);
 	display: flex;
 	align-items: center;
 	justify-content: center;

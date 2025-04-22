@@ -1,6 +1,5 @@
 import React from 'react';
 import SplitTextAnimation from '@/components/animation/split-text/split-text.animation';
-import ChatInputWrapper from '@/components/container/chat-input/chat-input-wrapper';
 import FloatingAssets from './floating-assets/floating-assets';
 import { MotionValue, useTransform, motion } from 'framer-motion';
 
@@ -15,7 +14,7 @@ function HomeHero({
 	return (
 		<motion.div
 			style={{ scale, rotate }}
-			className='sticky top-0 h-screen w-screen flex flex-col items-center justify-center gap-10 -z-1'>
+			className='sticky top-0 h-screen w-screen flex flex-col items-center justify-center gap-10 z-1'>
 			<FloatingAssets />
 			<div className='flex flex-col gap-2 items-center relative z-0'>
 				<SplitTextAnimation
@@ -27,9 +26,6 @@ function HomeHero({
 					text="Introducing world's best crypto finance platform"
 					className='text-3xl font-regular text-text-light'
 				/>
-			</div>
-			<div className='max-w-[400px] w-full'>
-				<ChatInputWrapper />
 			</div>
 		</motion.div>
 	);

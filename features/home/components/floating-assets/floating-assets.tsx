@@ -22,13 +22,13 @@ const CORNERS = [
 	},
 	{
 		name: 'bottomLeft',
-		style: { bottom: '100px', left: '160px', animationDelay: '-6s' },
+		style: { bottom: '100px', left: '200px', animationDelay: '-6s' },
 		width: 140,
 		height: 140,
 	},
 	{
 		name: 'bottomRight',
-		style: { bottom: '100px', right: '160px' },
+		style: { bottom: '100px', right: '200px' },
 		width: 160,
 		height: 160,
 	},
