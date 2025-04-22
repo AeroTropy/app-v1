@@ -1,14 +1,24 @@
-import { AgentKit } from '@coinbase/agentkit';
+import { AgentKit, CdpWalletProvider } from '@coinbase/agentkit';
 import { getVercelAITools } from '@coinbase/agentkit-vercel-ai-sdk';
 import { google } from '@ai-sdk/google';
 import { anthropic } from '@ai-sdk/anthropic';
 
-const agentKit = await AgentKit.from({
-	cdpApiKeyName: process.env.CDP_API_KEY_NAME,
-	cdpApiKeyPrivateKey: process.env.CDP_API_KEY_PRIVATE_KEY,
-});
+export const getAgentKitTool = async ({ address }: { address?: string }) => {
+	const walletProvider = await CdpWalletProvider.configureWithWallet({
+		apiKeyName: process.env.CDP_API_KEY_NAME,
+		apiKeyPrivateKey: process.env.CDP_API_KEY_PRIVATE_KEY,
+		networkId: process.env.NETWORK_ID,
+		address,
+	});
 
-const tools = getVercelAITools(agentKit);
+	console.log(address, walletProvider.getAddress());
+
+	const agentKit = await AgentKit.from({
+		walletProvider,
+	});
+
+	return getVercelAITools(agentKit);
+};
 
 const VERCEL_SELECTED_MODEL = process.env.VERCEL_AI_MODEL || 'google';
 
@@ -30,7 +40,7 @@ you're on. If there is a 5XX (internal) HTTP error code, ask the user to try aga
 
  ${walletAddress ? `The user has connected their wallet with address: ${walletAddress}` : 'The user has not connected their wallet yet.'}
 
- Current Network type is Base ${process.env.CHAIN_NETWORK}
+ Current Network type is ${process.env.NETWORK_ID}
 
 If someone
 asks you to do something you can't do with your currently available tools, you must say so, and
@@ -46,7 +56,6 @@ If user ask anything which requires the walletAddress and if wallet is not conne
  `;
 
 export const agentKitConfig = {
-	agentKit,
-	tools,
+	getAgentKitTool,
 	getSystemPrompt,
 };
