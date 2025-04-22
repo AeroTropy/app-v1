@@ -8,8 +8,6 @@ import { Bot, MessageCircleMore } from 'lucide-react';
 interface ChatInputWrapperProps {
 	/** Optional class name for the wrapper */
 	className?: string;
-	/** Optional props to pass to the input element */
-	inputProps?: React.ComponentProps<'input'>;
 }
 
 /**
@@ -34,10 +32,7 @@ const PLACEHOLDER_SUGGESTIONS = [
  * A component that displays an input field with animated placeholder text
  * that cycles through different suggestions.
  */
-function ChatInputWrapper({
-	inputProps = {},
-	className,
-}: ChatInputWrapperProps) {
+function ChatInputWrapper({ className }: ChatInputWrapperProps) {
 	// State for the animated placeholder text
 	const [placeholderText, setPlaceholderText] = useState<string>(
 		PLACEHOLDER_SUGGESTIONS[0]
@@ -113,23 +108,12 @@ function ChatInputWrapper({
 		}
 	}, []);
 
-	// Check if the input has a value
-	const hasInputValue = Boolean(inputProps.value?.toString().trim());
-
 	useEffect(() => {
-		if (!hasInputValue) {
-			startAnimationInterval();
-		} else {
+		startAnimationInterval();
+		return () => {
 			stopAnimationInterval();
-		}
-
-		return stopAnimationInterval;
-	}, [
-		animationSpeed,
-		hasInputValue,
-		startAnimationInterval,
-		stopAnimationInterval,
-	]);
+		};
+	}, [startAnimationInterval, stopAnimationInterval]);
 
 	return (
 		<>
