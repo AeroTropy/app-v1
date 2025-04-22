@@ -50,33 +50,51 @@ function ChatInputWrapper({ className }: ChatInputWrapperProps) {
 			animate={isModalOpen ? 'open' : 'close'}
 			transition={{ type: 'spring', stiffness: 100 }}
 			variants={variants}>
-			<AnimatePresence>
+			{/* Input CTA */}
+			<AnimatePresence mode='wait'>
 				{!isModalOpen && (
-					<ChatInputCta
-						isModalOpen={isModalOpen}
+					<motion.div
+						key='input-cta'
+						className={styles['home-input-cta']}
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						exit={{ opacity: 0 }}
 						onClick={toggleModal}
-					/>
+						transition={{ duration: 0.2 }}>
+						<ChatInputCta isModalOpen={isModalOpen} />
+					</motion.div>
 				)}
+			</AnimatePresence>
+
+			{/* Chat View */}
+			<AnimatePresence>
 				{isModalOpen && (
-					<>
-						<motion.div
-							initial={{ opacity: 0, scale: 0 }}
-							animate={{ opacity: 1, scale: 1 }}
-							exit={{ opacity: 0, scale: 0 }}>
-							<ChatView />
-						</motion.div>
-						<motion.div
-							className={styles['cross-con']}
-							initial={{ opacity: 0, scale: 0 }}
-							animate={{ opacity: 1, scale: 1 }}
-							whileHover={{ rotate: '90deg' }}
-							exit={{ opacity: 0, scale: 0 }}>
-							<X
-								size={12}
-								onClick={toggleModal}
-							/>
-						</motion.div>
-					</>
+					<motion.div
+						key='chat-view'
+						className={styles.chatViewContainer}
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						exit={{ opacity: 0 }}
+						transition={{ duration: 0.2, delay: 0.1 }}>
+						<ChatView />
+					</motion.div>
+				)}
+			</AnimatePresence>
+
+			{/* Close Button */}
+			<AnimatePresence>
+				{isModalOpen && (
+					<motion.div
+						key='close-button'
+						className={styles['cross-con']}
+						initial={{ opacity: 0, scale: 0 }}
+						animate={{ opacity: 1, scale: 1 }}
+						whileHover={{ rotate: '90deg' }}
+						exit={{ opacity: 0, scale: 0 }}
+						onClick={toggleModal}
+						transition={{ duration: 0.2 }}>
+						<X size={12} />
+					</motion.div>
 				)}
 			</AnimatePresence>
 		</motion.div>

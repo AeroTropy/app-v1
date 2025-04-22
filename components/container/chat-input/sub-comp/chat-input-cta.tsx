@@ -3,7 +3,6 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styles from '../chat-input-wrapper.module.scss';
 import { cn } from '@/lib/utils';
 import { MessageCircleMore } from 'lucide-react';
-import { motion } from 'framer-motion';
 
 /**
  * Animation timing constants (in milliseconds)
@@ -23,13 +22,7 @@ const PLACEHOLDER_SUGGESTIONS = [
 	'what is my risk appetite',
 ];
 
-function ChatInputCta({
-	isModalOpen,
-	onClick,
-}: {
-	isModalOpen: boolean;
-	onClick: () => void;
-}) {
+function ChatInputCta({ isModalOpen }: { isModalOpen: boolean }) {
 	const [placeholderText, setPlaceholderText] = useState<string>(
 		PLACEHOLDER_SUGGESTIONS[0]
 	);
@@ -118,12 +111,7 @@ function ChatInputCta({
 	}, [startAnimationInterval, stopAnimationInterval, isModalOpen]);
 
 	return (
-		<motion.div
-			className={styles['home-input-cta']}
-			initial={{ opacity: 0, scale: 0 }}
-			animate={{ opacity: 1, scale: 1 }}
-			onClick={onClick}
-			exit={{ opacity: 0, scale: 0 }}>
+		<>
 			<div className={cn(styles['home-input-box'])}>
 				<p className={styles['home-input-placeholder']}>
 					Ask about {placeholderText}
@@ -132,7 +120,7 @@ function ChatInputCta({
 			<div className={styles['home-chat-icon-con']}>
 				<MessageCircleMore size={18} />
 			</div>
-		</motion.div>
+		</>
 	);
 }
 
