@@ -74,8 +74,11 @@ function ChatInputWrapper({ className }: ChatInputWrapperProps) {
 						className={styles.chatViewContainer}
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
-						exit={{ opacity: 0 }}
-						transition={{ duration: 0.2, delay: 0.1 }}>
+						exit={{
+							opacity: 0,
+							transition: { delay: 0, duration: 0.1 },
+						}}
+						transition={{ duration: 0.3, delay: 0.2 }}>
 						<ChatView />
 					</motion.div>
 				)}
