@@ -1,12 +1,12 @@
 import { Input } from '@/components/ui/input';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import styles from './home-input-wrapper.module.scss';
+import styles from './chat-input-wrapper.module.scss';
 import { cn } from '@/lib/utils';
 import { Bot } from 'lucide-react';
 /**
  * Props for the HomeInputWrapper component
  */
-interface HomeInputWrapperProps {
+interface ChatInputWrapperProps {
 	/** Optional class name for the wrapper */
 	className?: string;
 	/** Optional props to pass to the input element */
@@ -35,10 +35,10 @@ const PLACEHOLDER_SUGGESTIONS = [
  * A component that displays an input field with animated placeholder text
  * that cycles through different suggestions.
  */
-function HomeInputWrapper({
+function ChatInputWrapper({
 	inputProps = {},
 	className,
-}: HomeInputWrapperProps) {
+}: ChatInputWrapperProps) {
 	// State for the animated placeholder text
 	const [placeholderText, setPlaceholderText] = useState<string>(
 		PLACEHOLDER_SUGGESTIONS[0]
@@ -140,7 +140,7 @@ function HomeInputWrapper({
 			/>
 			<div className={cn(styles['home-input-box'])}>
 				<div className={styles['home-input-placeholder']}>
-					Ask Aerotropy about {placeholderText}
+					Ask about {placeholderText}
 				</div>
 				<Input
 					{...inputProps}
@@ -155,4 +155,4 @@ function HomeInputWrapper({
 	);
 }
 
-export default HomeInputWrapper;
+export default ChatInputWrapper;

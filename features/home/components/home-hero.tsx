@@ -2,7 +2,7 @@ import React from 'react';
 
 import { APP_ROUTE } from '@/constant/routes.constant';
 import SplitTextAnimation from '@/components/animation/split-text/split-text.animation';
-import HomeInputWrapper from '@/components/container/home-input/home-input-wrapper';
+import ChatInputWrapper from '@/components/container/chat-input/chat-input-wrapper';
 import FloatingAssets from './floating-assets/floating-assets';
 import { MotionValue, useTransform, motion } from 'framer-motion';
 import { useTransitionRouter } from 'next-view-transitions';
@@ -41,8 +41,8 @@ function HomeHero({
 					className='text-3xl font-regular text-text-light'
 				/>
 			</div>
-			<div className='anim-popup max-w-[700px] w-full'>
-				<HomeInputWrapper
+			<div className='anim-popup max-w-[400px] w-full'>
+				<ChatInputWrapper
 					inputProps={{
 						value: inputValue,
 						onChange: (e) => setInputValue(e.target.value),
