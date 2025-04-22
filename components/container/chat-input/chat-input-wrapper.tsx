@@ -1,8 +1,7 @@
-import { Input } from '@/components/ui/input';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styles from './chat-input-wrapper.module.scss';
 import { cn } from '@/lib/utils';
-import { Bot } from 'lucide-react';
+import { Bot, MessageCircleMore } from 'lucide-react';
 /**
  * Props for the HomeInputWrapper component
  */
@@ -133,25 +132,24 @@ function ChatInputWrapper({
 	]);
 
 	return (
-		<div className={cn(styles['home-input-wrapper'], className)}>
-			<Bot
-				size={24}
-				color='var(--text-secondary)'
-			/>
-			<div className={cn(styles['home-input-box'])}>
-				<div className={styles['home-input-placeholder']}>
-					Ask about {placeholderText}
-				</div>
-				<Input
-					{...inputProps}
-					placeholder={inputProps?.placeholder || ' '}
-					className={cn(
-						styles['home-input-con'],
-						inputProps?.className
-					)}
+		<>
+			<div
+				className={cn(styles['home-input-wrapper'], className)}
+				style={{ backdropFilter: 'blur(20px)' }}>
+				<Bot
+					size={24}
+					color='var(--text-secondary)'
 				/>
+				<div className={cn(styles['home-input-box'])}>
+					<p className={styles['home-input-placeholder']}>
+						Ask about {placeholderText}
+					</p>
+				</div>
+				<div className={styles['home-chat-icon-con']}>
+					<MessageCircleMore size={18} />
+				</div>
 			</div>
-		</div>
+		</>
 	);
 }
 

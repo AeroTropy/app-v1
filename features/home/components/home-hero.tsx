@@ -41,7 +41,7 @@ function HomeHero({
 					className='text-3xl font-regular text-text-light'
 				/>
 			</div>
-			<div className='anim-popup max-w-[400px] w-full'>
+			<div className='max-w-[400px] w-full'>
 				<ChatInputWrapper
 					inputProps={{
 						value: inputValue,

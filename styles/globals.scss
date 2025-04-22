@@ -46,6 +46,7 @@
 	--color-text-secondary: var(--text-secondary);
 	--color-text-light: var(--text-light);
 	--color-bg-negative: var(--bg-negative);
+	--color-home-input: var(--home-input-bg);
 
 	// breakpoints
 
@@ -118,6 +119,7 @@
 
 	// negative bg
 	--bg-negative: hsl(0, 0%, 17%);
+	--bg-negative-foreground: hsl(0, 0%, 100%);
 }
 
 .dark {
