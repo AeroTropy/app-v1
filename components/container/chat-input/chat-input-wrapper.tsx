@@ -72,6 +72,7 @@ function ChatInputWrapper({ className }: ChatInputWrapperProps) {
 					<motion.div
 						key='chat-view'
 						className={styles.chatViewContainer}
+						data-lenis-prevent
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
 						exit={{
