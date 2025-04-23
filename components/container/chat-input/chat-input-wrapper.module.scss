@@ -8,8 +8,7 @@
 	align-items: center;
 	transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
 	gap: 8px;
-	user-select: none;
-	cursor: pointer;
+
 	backdrop-filter: blur(14px);
 	-webkit-backdrop-filter: blur(14px);
 	will-change: transform, backdrop-filter;
@@ -40,6 +39,8 @@
 	gap: 8px;
 	height: 100%;
 	padding: 0 20px;
+	user-select: none;
+	cursor: pointer;
 }
 
 .home-chat-icon-con {

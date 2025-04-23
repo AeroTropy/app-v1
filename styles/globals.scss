@@ -113,7 +113,7 @@
 	--modal-border: hsl(0, 0%, 100%);
 
 	// inputs
-	--home-input-bg: hsla(0, 0%, 5%, 0.702);
+	--home-input-bg: hsla(0, 0%, 5%, 0.79);
 	--home-input-color: #fff;
 	--home-input-border: hsl(0, 0%, 24%);
 	--home-input-box-bg: hsla(0, 0%, 3%, 0.6);
@@ -130,6 +130,9 @@
 	--chat-input-bg: hsla(0, 0%, 3%, 0.6);
 	--chat-input-color: #fff;
 	--chat-input-border: hsl(0, 2%, 9%);
+	--chat-bubble-ai-color: #fff;
+	--chat-bubble-user-color: #000;
+	--chat-bubble-user-bg: #fff;
 }
 
 @layer base {
