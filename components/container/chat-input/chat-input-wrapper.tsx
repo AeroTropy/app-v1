@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './chat-input-wrapper.module.scss';
 import { X } from 'lucide-react';
 import ChatView from '@/features/chat/chat.view';
 import { AnimatePresence, motion } from 'framer-motion';
 import ChatInputCta from './sub-comp/chat-input-cta';
 import { cn } from '@/lib/utils';
+import { useLenis } from 'lenis/react';
 
 /**
  * Props for the HomeInputWrapper component
@@ -19,7 +20,7 @@ interface ChatInputWrapperProps {
  * that cycles through different suggestions.
  */
 function ChatInputWrapper({ className }: ChatInputWrapperProps) {
-	// State for the animated placeholder text
+	const lenis = useLenis();
 
 	// State for modal open/close
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -39,6 +40,14 @@ function ChatInputWrapper({ className }: ChatInputWrapperProps) {
 			height: '80px',
 		},
 	};
+
+	useEffect(() => {
+		if (isModalOpen) {
+			lenis?.stop();
+		} else {
+			lenis?.start();
+		}
+	}, [isModalOpen, lenis]);
 
 	return (
 		<motion.div
@@ -73,6 +82,7 @@ function ChatInputWrapper({ className }: ChatInputWrapperProps) {
 						key='chat-view'
 						className={styles.chatViewContainer}
 						data-lenis-prevent
+						data-stop-body-scroll={isModalOpen}
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1 }}
 						exit={{

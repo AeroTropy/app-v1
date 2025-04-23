@@ -22,8 +22,7 @@ function SmoothScroll({ children }: { children: React.ReactNode }) {
 			ref={lenisRef}
 			root
 			options={{
-				lerp: 0.1,
-				duration: 1.5,
+				duration: 1.2,
 				smoothWheel: true,
 				autoRaf: false,
 			}}>
