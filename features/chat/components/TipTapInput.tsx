@@ -3,6 +3,8 @@ import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Placeholder from '@tiptap/extension-placeholder';
 import styles from '../chat.module.scss';
+import { MessageCircleMore } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 interface TipTapInputProps {
 	onSend: (msg: string) => void;
@@ -20,6 +22,11 @@ const TipTapInput: React.FC<TipTapInputProps> = ({ onSend, loading }) => {
 		content: '',
 		editable: !loading,
 		autofocus: true,
+		editorProps: {
+			attributes: {
+				class: styles.tiptap,
+			},
+		},
 	});
 
 	const handleSend = () => {
@@ -45,15 +52,17 @@ const TipTapInput: React.FC<TipTapInputProps> = ({ onSend, loading }) => {
 				onKeyDown={handleKeyDown}>
 				<EditorContent
 					editor={editor}
-					className='w-full'
+					autoFocus
+					className={styles.proseMirror}
 				/>
 			</div>
-			<button
+			<motion.button
+				whileHover={{ scale: 0.92 }}
 				className={styles.sendButton}
 				onClick={handleSend}
 				disabled={loading || !editor?.getText().trim()}>
-				{loading ? 'Sending...' : 'Send'}
-			</button>
+				<MessageCircleMore size={16} />
+			</motion.button>
 		</div>
 	);
 };

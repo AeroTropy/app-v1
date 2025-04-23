@@ -1,40 +1,10 @@
-@use 'sass:color';
-
 .chatContainer {
-	background: var(--card);
-	border-radius: var(--radius-lg);
-	box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
-	padding: 1.5rem 2rem;
 	width: 100%;
-	max-width: 1024px;
-	margin: 2rem auto;
 	display: flex;
 	flex-direction: column;
 	min-height: 75vh;
-	border: 1px solid var(--border);
-}
-
-.chatHeader {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	margin-bottom: 1.5rem;
-	background: var(--primary);
-	border-radius: var(--radius);
-	padding: 1rem 1.5rem;
-	box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-}
-
-.headerIcon {
-	color: var(--primary-foreground);
-}
-
-.headerTitle {
-	color: var(--primary-foreground);
-	font-size: 1.25rem;
-	font-weight: 600;
-	letter-spacing: 0.03em;
-	margin: 0;
+	gap: 8px;
+	height: 100%;
 }
 
 .chatContent {
@@ -107,48 +77,33 @@
 }
 
 .chatForm {
-	margin-top: 1.2rem;
-	border-top: 1px solid var(--border);
-	padding-top: 1.2rem;
 }
 
 .chatInputContainer {
 	display: flex;
-	gap: 0.7rem;
-	align-items: flex-end;
-}
-
-.chatInput {
-	flex: 1;
-	padding: 0.8rem 1.1rem;
-	border-radius: var(--radius);
-	border: 1px solid var(--border);
-	background: var(--input);
-	color: var(--foreground);
-	font-size: 1rem;
-	outline: none;
-	transition: border-color 0.18s;
-	&:focus {
-		border-color: var(--primary);
-	}
-}
-
-.chatInput:disabled {
-	background: var(--muted);
-	color: var(--muted-foreground);
+	align-items: center;
+	background: var(--chat-input-bg);
+	color: var(--chat-input-color);
+	border-radius: 12px;
+	padding: 6px;
+	gap: 8px;
+	height: 50px;
 }
 
 .sendButton {
-	padding: 0.7rem 1.2rem;
-	border-radius: var(--radius);
+	flex-shrink: 0;
+	border-radius: 50%;
+	width: 36px;
+	height: 36px;
 	background: var(--primary);
 	color: var(--primary-foreground);
-	font-weight: 500;
-	border: none;
-	cursor: pointer;
-	transition: opacity 0.13s;
-	&:hover {
-		opacity: 0.9;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: var(--negative-btn-bg);
+	color: var(--negative-btn-color);
+	&:disabled {
+		opacity: 0.5;
 	}
 }
 
@@ -158,37 +113,21 @@
 
 .tiptapInput {
 	flex: 1;
-	background: var(--input);
-	border-radius: var(--radius);
-	padding: 0.7rem 1.1rem;
-	min-height: 2.2em;
-	max-height: 8em;
-	color: var(--foreground);
-	font-size: 1rem;
-	margin-right: 0.5rem;
-	overflow-y: auto;
-	outline: none;
-	border: 1px solid var(--border);
-	transition: border-color 0.18s;
+	color: inherit;
 	display: flex;
 	align-items: center;
-}
-
-.tiptapInput:focus-within {
-	border-color: var(--primary);
-}
-
-.tiptapInput .ProseMirror {
-	background: transparent;
 	outline: none;
-	color: var(--foreground);
-	font-size: 1rem;
-	min-height: 1.2em;
-	max-height: 8em;
-	padding: 0;
-	margin: 0;
-	word-break: break-word;
+	height: 100%;
+}
+
+.proseMirror {
 	width: 100%;
+	padding: 0 10px;
+	.tiptap {
+		height: 100%;
+		outline: none;
+		font-size: 18px;
+	}
 }
 
 .tiptapInput .ProseMirror:empty:before {
