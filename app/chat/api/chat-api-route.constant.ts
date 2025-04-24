@@ -2,26 +2,23 @@ import { AgentKit } from '@coinbase/agentkit';
 import { getVercelAITools } from '@coinbase/agentkit-vercel-ai-sdk';
 import { google } from '@ai-sdk/google';
 import { anthropic } from '@ai-sdk/anthropic';
-
 import { ViemWalletProvider } from '@coinbase/agentkit';
 import { base } from 'viem/chains';
 import { createWalletClient, http } from 'viem';
+import { Web3Address } from '@/types/web3/web3.types';
+
+export const isMainnet = process.env.CHAIN_NETWORK === 'mainnet';
 
 export const getAgentKitTool = async ({ address }: { address?: string }) => {
+	const rpcURL =
+		isMainnet ? process.env.BASE_MAINNET_RPC : process.env.BASE_SEPOLIA_RPC;
 	const client = createWalletClient({
-		account: address as `0x${string}`,
+		account: address as Web3Address,
 		chain: base,
-		transport: http(),
+		transport: http(rpcURL),
 	});
 
 	const walletProvider = new ViemWalletProvider(client);
-
-	console.log(
-		'address',
-		address,
-		'walletProvider',
-		walletProvider.getAddress()
-	);
 
 	const agentKit = await AgentKit.from({
 		walletProvider,
