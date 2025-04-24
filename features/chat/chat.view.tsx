@@ -1,26 +1,26 @@
 'use client';
-import React, { useMemo } from 'react';
-import { Message, useChat } from '@ai-sdk/react';
+import React, { useEffect, useMemo } from 'react';
+import { useChat } from '@ai-sdk/react';
 import ChatMessages from './components/ChatMessages';
 import ChatInput from './components/ChatInput';
 import styles from './chat.module.scss';
 import { ENDPOINTS } from '@/constant/api/endpoints.constant';
 import { useWeb3User } from '@/context/web3-user.context';
+import { useChatStore } from '@/store/useChatStore';
 
-const ChatView: React.FC<{ initialText?: string }> = ({ initialText }) => {
+const ChatView: React.FC = () => {
 	const { address } = useWeb3User();
+	const { messages: storedMessages, setMessages: setStoredMessages } =
+		useChatStore();
+
 	const initialMessages = useMemo(() => {
-		if (initialText) {
-			return [
-				{
-					id: 'init-' + Date.now(),
-					role: 'user',
-					content: initialText,
-				},
-			] as Message[];
+		// If there are stored messages, use those
+		if (storedMessages.length > 0) {
+			return storedMessages;
 		}
+
 		return [];
-	}, [initialText]);
+	}, [storedMessages]);
 
 	const { messages, input, handleSubmit, isLoading, error, append } = useChat(
 		{
@@ -29,6 +29,13 @@ const ChatView: React.FC<{ initialText?: string }> = ({ initialText }) => {
 			initialMessages,
 		}
 	);
+
+	// Sync messages with the store whenever they change
+	useEffect(() => {
+		if (messages.length > 0) {
+			setStoredMessages(messages);
+		}
+	}, [messages, setStoredMessages]);
 
 	return (
 		<div className={styles.chatContainer}>
