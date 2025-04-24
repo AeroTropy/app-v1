@@ -1,17 +1,27 @@
-import { AgentKit, CdpWalletProvider } from '@coinbase/agentkit';
+import { AgentKit } from '@coinbase/agentkit';
 import { getVercelAITools } from '@coinbase/agentkit-vercel-ai-sdk';
 import { google } from '@ai-sdk/google';
 import { anthropic } from '@ai-sdk/anthropic';
 
+import { ViemWalletProvider } from '@coinbase/agentkit';
+import { base } from 'viem/chains';
+import { createWalletClient, http } from 'viem';
+
 export const getAgentKitTool = async ({ address }: { address?: string }) => {
-	const walletProvider = await CdpWalletProvider.configureWithWallet({
-		apiKeyName: process.env.CDP_API_KEY_NAME,
-		apiKeyPrivateKey: process.env.CDP_API_KEY_PRIVATE_KEY,
-		networkId: process.env.NETWORK_ID,
-		address,
+	const client = createWalletClient({
+		account: address as `0x${string}`,
+		chain: base,
+		transport: http(),
 	});
 
-	console.log(address, walletProvider.getAddress());
+	const walletProvider = new ViemWalletProvider(client);
+
+	console.log(
+		'address',
+		address,
+		'walletProvider',
+		walletProvider.getAddress()
+	);
 
 	const agentKit = await AgentKit.from({
 		walletProvider,
