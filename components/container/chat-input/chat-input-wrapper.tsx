@@ -31,11 +31,18 @@ function ChatInputWrapper({ className }: ChatInputWrapperProps) {
 	};
 
 	const variants = {
+		initial: {
+			opacity: 0,
+			width: 0,
+			height: '80px',
+		},
 		open: {
+			opacity: 1,
 			width: '80vw',
 			height: '80vh',
 		},
 		close: {
+			opacity: 1,
 			width: '400px',
 			height: '80px',
 		},
@@ -53,7 +60,7 @@ function ChatInputWrapper({ className }: ChatInputWrapperProps) {
 		<motion.div
 			className={cn(styles['home-input-wrapper'], className)}
 			style={{ backdropFilter: 'blur(14px)' }}
-			initial='close'
+			initial='initial'
 			whileHover={{ scale: isModalOpen ? 1 : 1.05 }}
 			whileTap={{ scale: isModalOpen ? 1 : 0.98 }}
 			animate={isModalOpen ? 'open' : 'close'}

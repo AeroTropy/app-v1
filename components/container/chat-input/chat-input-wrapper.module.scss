@@ -22,6 +22,7 @@
 	isolation: isolate;
 
 	.home-input-placeholder {
+		white-space: nowrap;
 		position: absolute;
 		display: flex;
 		align-items: center;
