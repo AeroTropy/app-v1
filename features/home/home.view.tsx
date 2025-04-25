@@ -22,7 +22,7 @@ function HomeView() {
 				<HomeSecondSection scrollYProgress={scrollYProgress} />
 			</div>
 			<div
-				className='fixed left-1/2 bottom-[30px] z-50'
+				className='fixed left-1/2 bottom-[30px] z-40'
 				style={{ transform: 'translateX(-50%)' }}>
 				<ChatInputWrapper />
 			</div>

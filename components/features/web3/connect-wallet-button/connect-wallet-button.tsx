@@ -15,16 +15,21 @@ import { Avatar, Name } from '@coinbase/onchainkit/identity';
 import styles from './connect-wallet-button.module.scss';
 import { cn } from '@/lib/utils';
 import { useWeb3User } from '@/context/web3-user.context';
+import If from '@/components/utils/If';
 
 interface ConnectWalletButtonProps {
 	btnClassName?: string;
+	minimal?: boolean;
 }
 
-function ConnectWalletButton({ btnClassName }: ConnectWalletButtonProps) {
+function ConnectWalletButton({
+	btnClassName,
+	minimal,
+}: ConnectWalletButtonProps) {
 	return (
 		<Wallet>
 			<CustomConnectWalletButton btnClassName={btnClassName} />
-			<CustomWalletDropdown />
+			<CustomWalletDropdown minimal={minimal} />
 		</Wallet>
 	);
 }
@@ -46,7 +51,9 @@ function CustomConnectWalletButton({
 	);
 }
 
-function CustomWalletDropdown() {
+function CustomWalletDropdown({
+	minimal = false,
+}: Partial<ConnectWalletButtonProps>) {
 	return (
 		<WalletDropdown
 			classNames={{
@@ -55,8 +62,13 @@ function CustomWalletDropdown() {
 					swapButton: styles['swap-button'],
 				},
 			}}>
-			<WalletAdvancedWalletActions />
-			<WalletAdvancedAddressDetails />
+			<If isTrue={!minimal}>
+				<>
+					<WalletAdvancedWalletActions />
+					<WalletAdvancedAddressDetails />
+				</>
+			</If>
+
 			<WalletAdvancedTransactionActions />
 			<WalletDropdownBasename />
 			<WalletDropdownFundLink />

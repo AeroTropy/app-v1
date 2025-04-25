@@ -6,7 +6,8 @@ import { ViemWalletProvider } from '@coinbase/agentkit';
 import { base } from 'viem/chains';
 import { createWalletClient, http } from 'viem';
 import { Web3Address } from '@/types/web3/web3.types';
-
+import { tool as createTool } from 'ai';
+import { z } from 'zod';
 export const isMainnet = process.env.CHAIN_NETWORK === 'mainnet';
 
 export const getAgentKitTool = async ({ address }: { address?: string }) => {
@@ -57,12 +58,18 @@ restating your tools' descriptions unless it is explicitly requested. Also maint
  - Provide helpful information about cryptocurrencies, blockchain technology, and DeFi
  - Explain complex crypto concepts in simple terms
  - Never provide financial advice or price predictions.
-
-
-If user ask anything which requires the walletAddress and if wallet is not connected, you must ask the user to connect their wallet.
  `;
+
+export const customTools = {
+	connectWallet: createTool({
+		description:
+			'If user is not connected to a wallet, and if he is asking for any task which requires wallet address or wallet connection then ask the user to connect their wallet',
+		parameters: z.object({}),
+	}),
+};
 
 export const agentKitConfig = {
 	getAgentKitTool,
 	getSystemPrompt,
+	customTools,
 };

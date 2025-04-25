@@ -6,7 +6,7 @@ import {
 } from './chat-api-route.constant';
 
 export async function POST(req: Request) {
-	const { getAgentKitTool, getSystemPrompt } = agentKitConfig;
+	const { getAgentKitTool, getSystemPrompt, customTools } = agentKitConfig;
 
 	const clonedReq = req.clone();
 	const body = await clonedReq.json();
@@ -23,7 +23,10 @@ export async function POST(req: Request) {
 	const result = streamText({
 		model: getCurrentVercelModel(),
 		messages,
-		tools,
+		tools: {
+			...customTools,
+			...tools,
+		},
 		system: getSystemPrompt(walletAddress),
 		maxSteps: 10,
 	});

@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
 		'@coinbase/agentkit-vercel-ai-sdk',
 		'@ai-sdk/google',
 		'@ai-sdk/anthropic',
+		'ai',
 	],
 };
 

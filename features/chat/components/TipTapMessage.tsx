@@ -10,6 +10,9 @@ import { Bot } from 'lucide-react';
 import If from '@/components/utils/If';
 import RobotLoading from '@/assets/icons/thinking-robot.svg';
 import Image from 'next/image';
+import ToolRenderer from '@/components/tools/tool-renderer';
+import { TOOL_NAME } from '@/constant/tools/tool.constant';
+import ConnectWalletButton from '@/components/features/web3/connect-wallet-button/connect-wallet-button';
 
 interface TipTapMessageProps {
 	message: Message;
@@ -51,6 +54,17 @@ const TipTapMessage: React.FC<TipTapMessageProps> = ({
 			)}
 			<div className={cn(styles.messageBubble, className)}>
 				<EditorContent editor={editor} />
+				<ToolRenderer
+					message={message}
+					name={TOOL_NAME.CW}
+					renderer={(_, key) => (
+						<ConnectWalletButton
+							btnClassName={styles['connect-wallet-button']}
+							minimal
+							key={key}
+						/>
+					)}
+				/>
 			</div>
 		</div>
 	);
