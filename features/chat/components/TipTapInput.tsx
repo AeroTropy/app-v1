@@ -19,6 +19,7 @@ const TipTapInput: React.FC<TipTapInputProps> = ({ onSend, loading }) => {
 				placeholder: 'Type your message...',
 			}),
 		],
+		immediatelyRender: false,
 		content: '',
 		editable: !loading,
 		autofocus: true,

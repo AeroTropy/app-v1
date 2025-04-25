@@ -22,12 +22,15 @@ const ChatView: React.FC = () => {
 		return [];
 	}, [storedMessages]);
 
-	const { messages, input, handleSubmit, isLoading, error, append } = useChat(
-		{
-			api: ENDPOINTS.CHAT.POST,
-			body: { walletAddress: address || '' },
-			initialMessages,
-		}
+	const { messages, input, handleSubmit, status, error, append } = useChat({
+		api: ENDPOINTS.CHAT.POST,
+		body: { walletAddress: address || '' },
+		initialMessages,
+	});
+
+	const isLoading = useMemo(
+		() => ['streaming', 'submitted'].includes(status),
+		[status]
 	);
 
 	// Sync messages with the store whenever they change
@@ -40,7 +43,10 @@ const ChatView: React.FC = () => {
 	return (
 		<div className={styles.chatContainer}>
 			<div className={styles.chatContent}>
-				<ChatMessages messages={messages} />
+				<ChatMessages
+					messages={messages}
+					isLoading={isLoading}
+				/>
 			</div>
 
 			{error && (

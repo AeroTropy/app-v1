@@ -3,12 +3,12 @@ import TipTapMessage from './TipTapMessage';
 import styles from '../chat.module.scss';
 import { type Message } from '@ai-sdk/react';
 
-// Remove duplicate interface that's already defined in TipTapMessage.tsx
 interface ChatMessagesProps {
 	messages: Message[];
+	isLoading: boolean;
 }
 
-const ChatMessages: React.FC<ChatMessagesProps> = ({ messages }) => {
+const ChatMessages: React.FC<ChatMessagesProps> = ({ messages, isLoading }) => {
 	const bottomRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
@@ -29,8 +29,9 @@ Ask us all your questions, ask us about blockchain, apr, wallet and we will do o
 				/>
 				{messages.map((msg, idx) => (
 					<TipTapMessage
-						key={idx}
 						message={msg}
+						isLoading={isLoading && idx === messages.length - 1}
+						key={idx}
 					/>
 				))}
 			</>
