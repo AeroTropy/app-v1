@@ -1,6 +1,7 @@
 'use client';
 import React, { useEffect, useMemo } from 'react';
 import { useChat } from '@ai-sdk/react';
+import { toast } from 'sonner';
 import ChatMessages from './components/ChatMessages';
 import ChatInput from './components/ChatInput';
 import styles from './chat.module.scss';
@@ -40,6 +41,15 @@ const ChatView: React.FC = () => {
 		}
 	}, [messages, setStoredMessages]);
 
+	// Show toast notification when error occurs
+	useEffect(() => {
+		if (error) {
+			toast.error(
+				typeof error === 'string' ? error : error.message || 'An error occurred'
+			);
+		}
+	}, [error]);
+
 	return (
 		<div className={styles.chatContainer}>
 			<div className={styles.chatContent}>
@@ -49,11 +59,7 @@ const ChatView: React.FC = () => {
 				/>
 			</div>
 
-			{error && (
-				<div className={styles.errorState}>
-					{typeof error === 'string' ? error : error.message}
-				</div>
-			)}
+
 
 			<form
 				className={styles.chatForm}
