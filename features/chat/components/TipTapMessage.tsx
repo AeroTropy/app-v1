@@ -34,6 +34,7 @@ const TipTapMessage: React.FC<TipTapMessageProps> = ({
 
 	useEffect(() => {
 		if (editor) {
+			console.log(message.content);
 			editor.commands.setContent(message.content);
 		}
 	}, [message.content]);
