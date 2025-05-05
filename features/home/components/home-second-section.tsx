@@ -16,10 +16,10 @@ function HomeSecondSection({
 		<motion.div
 			data-scroll-id='home-second-section'
 			style={{ scale, y, padding }}
-			className='h-screen w-screen  relative z-2'>
+			className='h-screen w-screen relative z-2'>
 			<motion.div
 				style={{ borderRadius }}
-				className='w-full h-full bg-bg-negative flex flex-col items-center justify-center gap-10'>
+				className='w-full h-full overflow-hidden'>
 				<PoolCollection />
 			</motion.div>
 		</motion.div>
