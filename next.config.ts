@@ -9,6 +9,14 @@ const nextConfig: NextConfig = {
 		'@ai-sdk/anthropic',
 		'ai',
 	],
+	images: {
+		remotePatterns: [
+			{
+				protocol: 'https',
+				hostname: 'img.cryptorank.io',
+			},
+		],
+	},
 };
 
 export default nextConfig;
