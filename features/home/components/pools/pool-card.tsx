@@ -11,20 +11,36 @@ function PoolCard({
 	no,
 	position,
 	rotation,
-	scrollYProgress,
+	scrollYProgressCenter,
+	scrollYProgressEnd,
 }: {
 	poolInfo: PoolInfo;
 	address: Web3Address;
 	no: number;
 	position: number;
 	rotation: number;
-	scrollYProgress: MotionValue<number>;
+	scrollYProgressCenter: MotionValue<number>;
+	scrollYProgressEnd: MotionValue<number>;
 }) {
-	const left = useTransform(scrollYProgress, [0, 1], ['50%', `${position}%`]);
+	const left = useTransform(
+		scrollYProgressCenter,
+		[0, 1],
+		['50%', `${position}%`]
+	);
 	const rotate = useTransform(
-		scrollYProgress,
+		scrollYProgressCenter,
 		[0, 1],
 		['0deg', `${rotation}deg`]
+	);
+	const rotateYFront = useTransform(
+		scrollYProgressEnd,
+		[0, 1],
+		['0deg', '180deg']
+	);
+	const rotateYBack = useTransform(
+		scrollYProgressEnd,
+		[0, 1],
+		['180deg', '0deg']
 	);
 	return (
 		<motion.div
@@ -34,11 +50,15 @@ function PoolCard({
 					'--no': no,
 					left,
 					rotate,
+					x: '-50%',
+					y: '-40%',
 				} as unknown as React.CSSProperties
 			}>
 			<div className={styles.poolCardWrapper}>
 				<div className={styles.cardInner}>
-					<div className={styles.cardFront}>
+					<motion.div
+						style={{ rotateY: rotateYFront }}
+						className={styles.cardFront}>
 						<Image
 							src={poolInfo.image}
 							alt={poolInfo.name}
@@ -46,8 +66,12 @@ function PoolCard({
 							height={500}
 							priority
 						/>
-					</div>
-					<div className={styles.cardBack}>test</div>
+					</motion.div>
+					<motion.div
+						style={{ rotateY: rotateYBack }}
+						className={styles.cardBack}>
+						test
+					</motion.div>
 				</div>
 			</div>
 		</motion.div>

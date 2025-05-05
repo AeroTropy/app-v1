@@ -5,13 +5,15 @@ import PoolCard from './pool-card';
 import { POOL_INFO } from './pool.constant';
 import { MotionValue } from 'framer-motion';
 
-const position = [5, 50, 95];
-const rotation = [-7.5, 1.25, 7.5];
+const position = [20, 50, 80];
+const rotation = [-6.5, 1.25, 7.5];
 
 function PoolCollection({
-	scrollYProgress,
+	scrollYProgressCenter,
+	scrollYProgressEnd,
 }: {
-	scrollYProgress: MotionValue<number>;
+	scrollYProgressCenter: MotionValue<number>;
+	scrollYProgressEnd: MotionValue<number>;
 }) {
 	return (
 		<div className={styles.poolCon}>
@@ -24,7 +26,8 @@ function PoolCollection({
 						no={index}
 						position={position[index]}
 						rotation={rotation[index]}
-						scrollYProgress={scrollYProgress}
+						scrollYProgressCenter={scrollYProgressCenter}
+						scrollYProgressEnd={scrollYProgressEnd}
 					/>
 				))}
 			</div>

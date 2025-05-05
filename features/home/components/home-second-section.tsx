@@ -13,9 +13,13 @@ function HomeSecondSection({
 	const padding = useTransform(scrollYProgress, [0, 1], [0, 5]);
 
 	const containerRef = useRef<HTMLDivElement>(null);
-	const { scrollYProgress: containerScrollYProgress } = useScroll({
+	const { scrollYProgress: containerScrollYProgressCenter } = useScroll({
 		target: containerRef,
-		offset: ['start start', 'end start'],
+		offset: ['start start', 'center center'],
+	});
+	const { scrollYProgress: containerScrollYProgressEnd } = useScroll({
+		target: containerRef,
+		offset: ['center center', 'end end'],
 	});
 
 	return (
@@ -27,7 +31,10 @@ function HomeSecondSection({
 			<motion.div
 				style={{ borderRadius }}
 				className='w-full h-[calc(100vh-10px)] sticky top-[5px]  overflow-hidden'>
-				<PoolCollection scrollYProgress={containerScrollYProgress} />
+				<PoolCollection
+					scrollYProgressCenter={containerScrollYProgressCenter}
+					scrollYProgressEnd={containerScrollYProgressEnd}
+				/>
 			</motion.div>
 		</motion.div>
 	);
