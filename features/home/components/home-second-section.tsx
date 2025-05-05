@@ -1,5 +1,6 @@
 import { MotionValue, useTransform, motion } from 'framer-motion';
 import React from 'react';
+import PoolCollection from './pools/pool-collection';
 
 function HomeSecondSection({
 	scrollYProgress,
@@ -18,7 +19,9 @@ function HomeSecondSection({
 			className='h-screen w-screen  relative z-2'>
 			<motion.div
 				style={{ borderRadius }}
-				className='w-full h-full bg-bg-negative flex flex-col items-center justify-center gap-10'></motion.div>
+				className='w-full h-full bg-bg-negative flex flex-col items-center justify-center gap-10'>
+				<PoolCollection />
+			</motion.div>
 		</motion.div>
 	);
 }
