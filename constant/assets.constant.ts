@@ -5,4 +5,9 @@ export const ASSETS = {
 		COINBASE: '/3d/coinbase.webp',
 		UNISWAP: '/3d/uniswap.webp',
 	},
+	POOL: {
+		HIGH_GROWTH: '/pool/highrisk.png',
+		BALANCED_GROWTH: '/pool/balanced.png',
+		STABLE_GROWTH: '/pool/stable.png',
+	},
 };

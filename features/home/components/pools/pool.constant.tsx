@@ -1,3 +1,4 @@
+import { ASSETS } from '@/constant/assets.constant';
 import { POOL_ADDRESSES } from '@/constant/web3/address/pools.constant';
 
 export interface PoolInfo {
@@ -5,6 +6,7 @@ export interface PoolInfo {
 	description: string;
 	features: { title: string }[];
 	comingSoon?: boolean;
+	image: string;
 }
 
 export const POOL_INFO: Record<string, PoolInfo> = {
@@ -17,6 +19,7 @@ export const POOL_INFO: Record<string, PoolInfo> = {
 			{ title: 'Yield Optimization' },
 			{ title: 'Active Rebalancing' },
 		],
+		image: ASSETS.POOL.HIGH_GROWTH,
 	},
 	[POOL_ADDRESSES[1]]: {
 		name: 'Balanced Growth Pool',
@@ -27,6 +30,7 @@ export const POOL_INFO: Record<string, PoolInfo> = {
 			{ title: 'Risk Management' },
 			{ title: 'Regular Optimization' },
 		],
+		image: ASSETS.POOL.BALANCED_GROWTH,
 	},
 	[POOL_ADDRESSES[2]]: {
 		name: 'Stable Growth Pool',
@@ -37,16 +41,6 @@ export const POOL_INFO: Record<string, PoolInfo> = {
 			{ title: 'Capital Protection' },
 			{ title: 'Consistent Returns' },
 		],
-	},
-	[POOL_ADDRESSES[3]]: {
-		name: 'All Weather Pool',
-		description:
-			'Conservative strategy focused on capital preservation using stablecoins and established assets',
-		comingSoon: true,
-		features: [
-			{ title: 'Stablecoin Focus' },
-			{ title: 'Capital Protection' },
-			{ title: 'Consistent Returns' },
-		],
+		image: ASSETS.POOL.STABLE_GROWTH,
 	},
 };

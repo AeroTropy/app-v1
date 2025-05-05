@@ -9,7 +9,6 @@ export const POOL_ADDRESSES: Web3Address[] = [
 	'0x1527b9f572C49EC1D9240D66a882A2AaACceC8f8',
 	'0x265e2068955685c3676ea1c075257ab0bf5148b4',
 	'0x8a4dd22bcd307fca80db7eefb090e430badccf7f',
-	'0x8a4dd22b00007fca80db7eefb090e430badccf7f',
 ];
 
 export const POOLS: Pool[] = [
@@ -24,9 +23,5 @@ export const POOLS: Pool[] = [
 	{
 		name: 'Stable Growth Pool',
 		address: POOL_ADDRESSES[2],
-	},
-	{
-		name: 'All Weather Pool',
-		address: POOL_ADDRESSES[3],
 	},
 ];
