@@ -10,4 +10,7 @@ export const ASSETS = {
 		BALANCED_GROWTH: '/pool/balanced.png',
 		STABLE_GROWTH: '/pool/stable.png',
 	},
+	BG: {
+		GRAIN: '/bg/grain-01.webp',
+	},
 };
