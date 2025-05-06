@@ -4,6 +4,7 @@ import { Web3Address } from '@/types/web3/web3.types';
 import { PoolInfo } from './pool.constant';
 import Image from 'next/image';
 import { MotionValue, useTransform, motion } from 'framer-motion';
+import PoolCardAction from './pool-card-action';
 
 function PoolCard({
 	poolInfo,
@@ -70,7 +71,10 @@ function PoolCard({
 					<motion.div
 						style={{ rotateY: rotateYBack }}
 						className={styles.cardBack}>
-						test
+						<PoolCardAction
+							address={address}
+							poolInfo={poolInfo}
+						/>
 					</motion.div>
 				</div>
 			</div>
