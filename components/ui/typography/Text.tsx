@@ -11,6 +11,7 @@ const paragraphVariants = cva('text-text-primary', {
 			primary: 'text-text-primary',
 			secondary: '!text-text-secondary',
 			light: '!text-text-light',
+			error: '!text-text-error',
 		},
 		textWeight: {
 			regular: 'font-normal',
