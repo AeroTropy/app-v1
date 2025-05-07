@@ -7,8 +7,8 @@ export const ASSETS = {
 	},
 	POOL: {
 		HIGH_GROWTH: '/pool/highrisk.png',
-		BALANCED_GROWTH: '/pool/balanced.png',
-		STABLE_GROWTH: '/pool/stable.png',
+		BALANCED_GROWTH: '/pool/balanced.webp',
+		STABLE_GROWTH: '/pool/stable.webp',
 	},
 	BG: {
 		GRAIN: '/bg/grain-01.webp',
