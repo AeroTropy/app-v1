@@ -1,12 +1,17 @@
 import { ASSETS } from '@/constant/assets.constant';
 import { POOL_ADDRESSES } from '@/constant/web3/address/pools.constant';
-
+export enum PoolRisk {
+	HIGH = 'high',
+	MEDIUM = 'medium',
+	LOW = 'low',
+}
 export interface PoolInfo {
 	name: string;
 	description: string;
 	features: { title: string }[];
 	comingSoon?: boolean;
 	image: string;
+	risk: PoolRisk;
 }
 
 export const POOL_INFO: Record<string, PoolInfo> = {
@@ -20,6 +25,7 @@ export const POOL_INFO: Record<string, PoolInfo> = {
 			{ title: 'Active Rebalancing' },
 		],
 		image: ASSETS.POOL.HIGH_GROWTH,
+		risk: PoolRisk.HIGH,
 	},
 	[POOL_ADDRESSES[1]]: {
 		name: 'Balanced Growth Pool',
@@ -31,6 +37,7 @@ export const POOL_INFO: Record<string, PoolInfo> = {
 			{ title: 'Regular Optimization' },
 		],
 		image: ASSETS.POOL.BALANCED_GROWTH,
+		risk: PoolRisk.MEDIUM,
 	},
 	[POOL_ADDRESSES[2]]: {
 		name: 'Stable Growth Pool',
@@ -42,5 +49,6 @@ export const POOL_INFO: Record<string, PoolInfo> = {
 			{ title: 'Consistent Returns' },
 		],
 		image: ASSETS.POOL.STABLE_GROWTH,
+		risk: PoolRisk.LOW,
 	},
 };

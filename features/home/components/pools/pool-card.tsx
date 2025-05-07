@@ -35,12 +35,12 @@ function PoolCard({
 	);
 	const rotateYFront = useTransform(
 		scrollYProgressEnd,
-		[0, 1],
+		[0, 0.75],
 		['0deg', '180deg']
 	);
 	const rotateYBack = useTransform(
 		scrollYProgressEnd,
-		[0, 1],
+		[0, 0.75],
 		['180deg', '0deg']
 	);
 	return (
