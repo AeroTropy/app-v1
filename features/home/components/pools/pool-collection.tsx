@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './pool-collection.module.scss';
 import { POOL_ADDRESSES } from '@/constant/web3/address/pools.constant';
 import PoolCard from './pool-card';
-import { POOL_INFO } from './pool.constant';
+import { POOL_INFO } from '../../../../constant/data/pool-info.constant';
 import { MotionValue } from 'framer-motion';
 
 const position = [20, 50, 80];

@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './pool-collection.module.scss';
 import { Web3Address } from '@/types/web3/web3.types';
-import { PoolInfo } from './pool.constant';
+import { PoolInfo } from '../../../../constant/data/pool-info.constant';
 import Image from 'next/image';
 import { MotionValue, useTransform, motion } from 'framer-motion';
 import PoolCardAction from './pool-card-action';

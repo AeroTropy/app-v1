@@ -1,0 +1,174 @@
+.poolIdView {
+	--primary-text-color: #fff;
+	--secondary-text-color: #aaabac;
+	--card-bg: #1e1e1e;
+	max-width: 1300px;
+	margin: 0 auto;
+	padding: 50px 0;
+	display: flex;
+	gap: 50px;
+	color: var(--primary-text-color);
+}
+
+.gradientText {
+	background: linear-gradient(to right, #fff, #8b8c8d);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+}
+
+.poolDetails {
+	flex: 1;
+	.poolDetailsHeader {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+		&_title {
+			font-size: 72px;
+			font-weight: 500;
+			@extend .gradientText;
+		}
+		&_description {
+			font-size: 14px;
+			color: var(--secondary-text-color);
+		}
+	}
+}
+
+.poolQuickInfo {
+	margin-top: 32px;
+
+	.poolQuickInfoGrid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 16px;
+	}
+
+	.poolQuickInfoCard {
+		backdrop-filter: blur(20px);
+		border-radius: 16px;
+		padding: 16px;
+		min-height: 120px;
+		transition:
+			transform 0.3s ease,
+			box-shadow 0.3s ease;
+		position: relative;
+		overflow: hidden;
+		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		background: var(--card-bg);
+	}
+
+	.cardContent {
+		position: relative;
+		z-index: 1;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		height: 100%;
+	}
+
+	.cardTitle {
+		font-size: 14px;
+		font-weight: 500;
+		color: var(--secondary-text-color);
+		margin-bottom: 8px;
+	}
+
+	.cardValue {
+		font-size: 32px;
+		font-weight: 600;
+		background: linear-gradient(to right, #fff, #8b8c8d);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+		margin: 0;
+		text-transform: capitalize;
+	}
+}
+
+.poolSecurity {
+	margin-top: 40px;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+
+	.securityHeading {
+		font-size: 24px;
+		font-weight: 600;
+		@extend .gradientText;
+	}
+
+	.securityContainer {
+		backdrop-filter: blur(20px);
+		background: var(--card-bg);
+		border-radius: 16px;
+		padding: 24px;
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+	}
+
+	.securityFeature {
+		display: flex;
+		align-items: flex-start;
+		padding: 16px 0;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+
+		&:first-child {
+			padding-top: 0;
+		}
+
+		&:last-child {
+			padding-bottom: 0;
+			border-bottom: none;
+		}
+	}
+
+	.securityIconWrapper {
+		width: 40px;
+		height: 40px;
+		background: linear-gradient(
+			135deg,
+			rgba(255, 255, 255, 0.1),
+			rgba(255, 255, 255, 0.05)
+		);
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-right: 16px;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+	}
+
+	.securityIcon {
+		width: 20px;
+		height: 20px;
+		color: #fff;
+		stroke-width: 2px;
+	}
+
+	.securityContent {
+		flex: 1;
+	}
+
+	.securityTitle {
+		font-size: 16px;
+		font-weight: 600;
+		margin: 0 0 8px 0;
+		color: var(--primary-text-color);
+	}
+
+	.securityDescription {
+		font-size: 14px;
+		line-height: 1.5;
+		color: var(--secondary-text-color);
+		margin: 0;
+	}
+}
+
+.poolForm {
+	position: sticky;
+	top: 0;
+	width: 260px;
+}

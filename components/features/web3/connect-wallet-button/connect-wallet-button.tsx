@@ -27,10 +27,12 @@ function ConnectWalletButton({
 	minimal,
 }: ConnectWalletButtonProps) {
 	return (
-		<Wallet>
-			<CustomConnectWalletButton btnClassName={btnClassName} />
-			<CustomWalletDropdown minimal={minimal} />
-		</Wallet>
+		<div className={styles['connect-wallet-button-placeholder']}>
+			<Wallet>
+				<CustomConnectWalletButton btnClassName={btnClassName} />
+				<CustomWalletDropdown minimal={minimal} />
+			</Wallet>
+		</div>
 	);
 }
 

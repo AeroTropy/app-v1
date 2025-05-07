@@ -1,15 +1,9 @@
 import { POOL_ADDRESSES } from '@/constant/web3/address/pools.constant';
+import { PoolStats } from '@/types/web3/pool.types';
 import { create } from 'zustand';
 
 interface PoolState {
-	poolDetails: Record<
-		string,
-		{
-			apr: number;
-			tvl: number;
-			activeInvestors: number;
-		}
-	>;
+	poolDetails: Record<string, PoolStats>;
 	setPoolDetails: (poolDetails: PoolState['poolDetails']) => void;
 }
 

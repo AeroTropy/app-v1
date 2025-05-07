@@ -1,7 +1,7 @@
 'use client';
 import { POOL_ADDRESSES } from '@/constant/web3/address/pools.constant';
 import PoolCardAction from '@/features/home/components/pools/pool-card-action';
-import { POOL_INFO } from '@/features/home/components/pools/pool.constant';
+import { POOL_INFO } from '@/constant/data/pool-info.constant';
 import React from 'react';
 import styles from './pool-home.module.scss';
 
