@@ -1,0 +1,12 @@
+.poolCon {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 2rem;
+	height: 100%;
+	align-items: center;
+}
+
+.poolCard {
+	border-radius: 20px;
+	overflow: hidden;
+}

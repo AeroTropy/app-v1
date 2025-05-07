@@ -12,5 +12,6 @@ export const ASSETS = {
 	},
 	BG: {
 		GRAIN: '/bg/grain-01.webp',
+		GRAIN2: '/bg/grain-02.avif',
 	},
 };
