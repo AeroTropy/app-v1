@@ -5,6 +5,7 @@ import { useAccount } from 'wagmi';
 
 interface Web3UserContextType {
 	address: Web3Address | null;
+	isConnected: boolean;
 }
 
 const Web3UserContext = React.createContext<Web3UserContextType | null>(null);
@@ -22,10 +23,11 @@ export const Web3UserProvider = ({
 }: {
 	children: React.ReactNode;
 }) => {
-	const { address } = useAccount();
+	const { address, isConnected } = useAccount();
 
 	return (
-		<Web3UserContext.Provider value={{ address: address || null }}>
+		<Web3UserContext.Provider
+			value={{ address: address || null, isConnected }}>
 			{children}
 		</Web3UserContext.Provider>
 	);

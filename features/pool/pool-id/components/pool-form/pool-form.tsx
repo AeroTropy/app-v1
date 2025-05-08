@@ -21,6 +21,7 @@ function PoolForm() {
 		handleAmountChange,
 		handleMaxClick,
 		walletBalanceLoading,
+		isConnected,
 	} = usePoolForm();
 
 	const renderTokenOption = (option: StandardToken, isSelected: boolean) => {
@@ -45,6 +46,13 @@ function PoolForm() {
 
 	// Render available balance based on loading/error state
 	const renderAvailableBalance = () => {
+		if (!isConnected) {
+			return (
+				<Text.Regular12 variant={'light'}>
+					Wallet not connected
+				</Text.Regular12>
+			);
+		}
 		if (walletBalanceLoading) {
 			return <Skeleton className='h-4 w-24' />;
 		}

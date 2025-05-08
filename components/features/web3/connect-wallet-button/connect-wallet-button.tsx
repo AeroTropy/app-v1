@@ -58,6 +58,7 @@ function CustomWalletDropdown({
 }: Partial<ConnectWalletButtonProps>) {
 	return (
 		<WalletDropdown
+			className='z-100'
 			classNames={{
 				container: styles['wallet-dropdown'],
 				swap: {

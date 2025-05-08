@@ -17,7 +17,7 @@ export const useWalletTokenBalance = (
 	tokenAddress: Web3Address | undefined,
 	{ decimals = 18, address }: TokenBalanceParams = {}
 ) => {
-	const { address: walletAccount } = useWeb3User();
+	const { address: walletAccount, isConnected } = useWeb3User();
 	const wAccount = address ?? walletAccount;
 
 	const { data, isError, isLoading, isSuccess, error, refetch, queryKey } =
@@ -43,5 +43,6 @@ export const useWalletTokenBalance = (
 		error,
 		refetch,
 		queryKey,
+		isConnected,
 	};
 };
