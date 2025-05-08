@@ -68,6 +68,20 @@ function usePoolForm() {
 		);
 	}, [walletBalanceError, MAX_AMOUNT, transactionStatus]);
 
+	// Check if the amount is valid (not exceeding max and not zero/empty)
+	const isAmountValid = useMemo(() => {
+		if (!assetAmount || assetAmount === '0' || assetAmount === '.') {
+			return false;
+		}
+		const numAmount = parseFloat(assetAmount);
+		return numAmount > 0 && numAmount <= MAX_AMOUNT;
+	}, [assetAmount, MAX_AMOUNT]);
+
+	// Check if the form is valid overall
+	const isFormValid = useMemo(() => {
+		return isAmountValid && !isFormDisabled && token !== null;
+	}, [isAmountValid, isFormDisabled, token]);
+
 	return {
 		setToken,
 		token,
@@ -79,6 +93,8 @@ function usePoolForm() {
 		isFormDisabled,
 		walletBalanceLoading,
 		isConnected,
+		isAmountValid,
+		isFormValid,
 	};
 }
 

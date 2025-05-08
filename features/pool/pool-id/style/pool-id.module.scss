@@ -181,6 +181,10 @@
 		background: var(--card-bg);
 		padding: 16px;
 		border-radius: 20px;
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		&.poolFormCardError {
+			border: 1px solid #de6f6f;
+		}
 	}
 }
 

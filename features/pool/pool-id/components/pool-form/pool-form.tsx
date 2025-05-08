@@ -22,6 +22,8 @@ function PoolForm() {
 		handleMaxClick,
 		walletBalanceLoading,
 		isConnected,
+		isAmountValid,
+		isFormValid,
 	} = usePoolForm();
 
 	const renderTokenOption = (option: StandardToken, isSelected: boolean) => {
@@ -101,7 +103,11 @@ function PoolForm() {
 					onChange={(_, option) => setToken(option)}
 				/>
 			</div>
-			<div className={styles['poolFormCard']}>
+			<div
+				className={cn(styles['poolFormCard'], {
+					[styles['poolFormCardError']]:
+						assetAmount && !isAmountValid,
+				})}>
 				<div className='flex flex-col gap-4'>
 					<Text.Regular12 variant={'light'}>Amount</Text.Regular12>
 					<div className='flex w-full flex-col items-end'>
@@ -134,8 +140,15 @@ function PoolForm() {
 			<ConnectedBtn.Secondary
 				showConnectButton
 				className={styles['depositCta']}
-				btnClassName={cn(styles['depositCtaBtn'], '!h-[56px] ')}>
-				Deposit
+				btnClassName={cn(styles['depositCtaBtn'], '!h-[56px] ')}
+				disabled={!isFormValid}>
+				{!token ?
+					'Select Token'
+				: assetAmount && !isAmountValid ?
+					parseFloat(assetAmount) > 0 && formattedWalletBalance ?
+						'Exceeds Balance'
+					:	'Enter Valid Amount'
+				:	'Deposit'}
 			</ConnectedBtn.Secondary>
 		</div>
 	);
