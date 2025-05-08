@@ -68,6 +68,11 @@ function usePoolForm() {
 		);
 	}, [walletBalanceError, MAX_AMOUNT, transactionStatus]);
 
+	// Check if select is disabled
+	const isSelectDisabled = useMemo(() => {
+		return transactionStatus !== TransactionStatus.IDLE;
+	}, [walletBalanceError, MAX_AMOUNT, transactionStatus]);
+
 	// Check if the amount is valid (not exceeding max and not zero/empty)
 	const isAmountValid = useMemo(() => {
 		if (!assetAmount || assetAmount === '0' || assetAmount === '.') {
@@ -95,6 +100,7 @@ function usePoolForm() {
 		isConnected,
 		isAmountValid,
 		isFormValid,
+		isSelectDisabled,
 	};
 }
 

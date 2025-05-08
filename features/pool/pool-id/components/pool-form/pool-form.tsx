@@ -24,6 +24,7 @@ function PoolForm() {
 		isConnected,
 		isAmountValid,
 		isFormValid,
+		isSelectDisabled,
 	} = usePoolForm();
 
 	const renderTokenOption = (option: StandardToken, isSelected: boolean) => {
@@ -101,6 +102,7 @@ function PoolForm() {
 					renderValue={renderTokenValue}
 					className='border-none p-0 shadow-none ring-0'
 					onChange={(_, option) => setToken(option)}
+					disabled={isSelectDisabled}
 				/>
 			</div>
 			<div
