@@ -16,6 +16,7 @@
     "@coinbase/onchainkit": "^0.38.7",
     "@phosphor-icons/react": "^2.1.7",
     "@radix-ui/react-slot": "^1.2.0",
+    "@radix-ui/react-tooltip": "^1.2.6",
     "@react-three/drei": "^10.0.7",
     "@react-three/fiber": "^9.1.2",
     "@react-three/postprocessing": "^3.0.4",

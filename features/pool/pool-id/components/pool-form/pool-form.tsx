@@ -6,10 +6,23 @@ import { StandardToken, TOKENS } from '@/constant/web3/address/tokens.constant';
 import Image from 'next/image';
 import { Text } from '@/components/ui/typography/Text';
 import { cn } from '@/lib/utils';
-import { usePoolFormStore } from '../../store/pool-form.store';
+import { CustomInput } from '@/components/ui/input';
+import { Btn } from '@/components/ui/button';
+import usePoolForm from '../../hooks/usePoolForm';
+import { Skeleton } from '@/components/ui/skeleton';
 
 function PoolForm() {
-	const { setToken, token } = usePoolFormStore((state) => state);
+	const {
+		setToken,
+		token,
+		assetAmount,
+		formattedWalletBalance,
+		isFormDisabled,
+		handleAmountChange,
+		handleMaxClick,
+		walletBalanceLoading,
+	} = usePoolForm();
+
 	const renderTokenOption = (option: StandardToken, isSelected: boolean) => {
 		return (
 			<div
@@ -27,6 +40,19 @@ function PoolForm() {
 					{option.symbol}
 				</Text.Regular14>
 			</div>
+		);
+	};
+
+	// Render available balance based on loading/error state
+	const renderAvailableBalance = () => {
+		if (walletBalanceLoading) {
+			return <Skeleton className='h-4 w-24' />;
+		}
+		return (
+			<Text.Regular12 variant={'light'}>
+				Wallet balance: {formattedWalletBalance || '-'}{' '}
+				{token?.symbol || ''}
+			</Text.Regular12>
 		);
 	};
 
@@ -66,6 +92,36 @@ function PoolForm() {
 					className='border-none p-0 shadow-none ring-0'
 					onChange={(_, option) => setToken(option)}
 				/>
+			</div>
+			<div className={styles['poolFormCard']}>
+				<div className='flex flex-col gap-4'>
+					<Text.Regular12 variant={'light'}>Amount</Text.Regular12>
+					<div className='flex w-full flex-col items-end'>
+						<div className='flex items-center gap-1 justify-between w-full'>
+							<div className='flex-1'>
+								<CustomInput.Amount
+									autoFocus
+									type='number'
+									value={assetAmount}
+									onChange={handleAmountChange}
+									placeholder={`00.00 ${token?.symbol || ''}`}
+									disabled={isFormDisabled}
+								/>
+							</div>
+
+							<Btn.Self
+								onClick={handleMaxClick}
+								className='text-link'
+								disabled={isFormDisabled}>
+								MAX
+							</Btn.Self>
+						</div>
+
+						<div className='flex items-center gap-1'>
+							{renderAvailableBalance()}
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	);

@@ -18,13 +18,13 @@ export enum TransactionStatus {
 interface PoolFormState {
 	poolId: Web3Address;
 	token: StandardToken | null;
-	assetAmount: number;
+	assetAmount: string;
 	isLoading: boolean;
 	transactionStatus: TransactionStatus;
 
 	// Actions
 	setToken: (asset: PoolFormState['token']) => void;
-	setAssetAmount: (amount: number) => void;
+	setAssetAmount: (amount: string) => void;
 	setIsLoading: (isLoading: boolean) => void;
 	setTransactionStatus: (status: TransactionStatus) => void;
 	reset: () => void;
@@ -33,7 +33,7 @@ interface PoolFormState {
 
 const initialState = {
 	assetAddress: null,
-	assetAmount: 0,
+	assetAmount: '',
 	isLoading: false,
 	transactionStatus: TransactionStatus.IDLE,
 };
