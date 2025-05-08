@@ -2,12 +2,13 @@
 	--primary-text-color: #fff;
 	--secondary-text-color: #aaabac;
 	--card-bg: #1e1e1e;
-	max-width: 1300px;
+	max-width: 1350px;
 	margin: 0 auto;
 	padding: 50px 0;
 	display: flex;
 	gap: 50px;
 	color: var(--primary-text-color);
+	align-items: flex-start;
 }
 
 .gradientText {
@@ -169,6 +170,15 @@
 
 .poolForm {
 	position: sticky;
-	top: 0;
-	width: 260px;
+	top: 0px;
+	width: 360px;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+
+	.poolFormCard {
+		background: var(--card-bg);
+		padding: 16px;
+		border-radius: 20px;
+	}
 }

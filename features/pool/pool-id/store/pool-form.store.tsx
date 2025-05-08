@@ -17,18 +17,18 @@ export enum TransactionStatus {
 // Define the store state and actions
 interface PoolFormState {
 	poolId: Web3Address;
-	assetAddress: StandardToken | null;
+	token: StandardToken | null;
 	assetAmount: number;
 	isLoading: boolean;
 	transactionStatus: TransactionStatus;
 
 	// Actions
-	setAssetAddress: (asset: PoolFormState['assetAddress']) => void;
+	setToken: (asset: PoolFormState['token']) => void;
 	setAssetAmount: (amount: number) => void;
 	setIsLoading: (isLoading: boolean) => void;
 	setTransactionStatus: (status: TransactionStatus) => void;
 	reset: () => void;
-	resetStore: (newAssetAddress?: PoolFormState['assetAddress']) => void;
+	resetStore: (newAssetAddress?: PoolFormState['token']) => void;
 }
 
 const initialState = {
@@ -46,20 +46,20 @@ const createPoolFormStore = (
 	create<PoolFormState>((set) => ({
 		...initialState,
 		poolId,
-		assetAddress: initialAssetAddress,
-		setAssetAddress: (asset) => set({ assetAddress: asset }),
+		token: initialAssetAddress,
+		setToken: (asset) => set({ token: asset }),
 		setAssetAmount: (amount) => set({ assetAmount: amount }),
 		setIsLoading: (isLoading) => set({ isLoading }),
 		setTransactionStatus: (status) => set({ transactionStatus: status }),
 		reset: () =>
 			set({
 				...initialState,
-				assetAddress: null,
+				token: null,
 			}),
 		resetStore: (newAssetAddress) =>
 			set({
 				...initialState,
-				assetAddress:
+				token:
 					newAssetAddress !== undefined ? newAssetAddress : (
 						initialAssetAddress
 					),

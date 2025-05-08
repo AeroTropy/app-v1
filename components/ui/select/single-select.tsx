@@ -149,7 +149,7 @@ const SingleSelect = React.forwardRef<HTMLDivElement, SingleSelectProps<any>>(
 			if (selectedOption) {
 				return (
 					<Text.Regular14
-						variant='primary'
+						variant='light'
 						textWeight='semibold'>
 						{String(getNestedValue(selectedOption, labelKey) || '')}
 					</Text.Regular14>
@@ -158,7 +158,7 @@ const SingleSelect = React.forwardRef<HTMLDivElement, SingleSelectProps<any>>(
 
 			return (
 				<Text.Regular14
-					variant='primary'
+					variant='light'
 					textWeight='semibold'>
 					{placeholder}
 				</Text.Regular14>
@@ -171,7 +171,7 @@ const SingleSelect = React.forwardRef<HTMLDivElement, SingleSelectProps<any>>(
 				ref={selectRef}>
 				{label && (
 					<Text.Regular12
-						variant='primary'
+						variant='light'
 						textWeight='semibold'>
 						{label}
 					</Text.Regular12>
@@ -209,7 +209,7 @@ const SingleSelect = React.forwardRef<HTMLDivElement, SingleSelectProps<any>>(
 					{isOpen && (
 						<div
 							className={cn(
-								'absolute z-50 w-full mt-1 rounded-xl border border-input bg-popover shadow-md max-h-60 overflow-auto select-none p-1 flex flex-col gap-1',
+								'absolute z-50 w-full mt-1 rounded-xl border !border-select-border bg-select shadow-md max-h-60 overflow-auto select-none p-1 flex flex-col gap-1',
 								dropdownClassName
 							)}>
 							{options.length === 0 ?

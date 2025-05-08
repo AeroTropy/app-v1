@@ -1,5 +1,7 @@
+import { Web3Address } from '@/types/web3/web3.types';
+
 export type StandardToken = {
-	address: string;
+	address: Web3Address;
 	name: string;
 	symbol: string;
 	decimals: number;

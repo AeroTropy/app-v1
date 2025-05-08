@@ -47,6 +47,8 @@
 	--color-text-light: var(--text-light);
 	--color-bg-negative: var(--bg-negative);
 	--color-home-input: var(--home-input-bg);
+	--color-select: var(--select-bg);
+	--color-select-border: var(--select-border);
 
 	// breakpoints
 
@@ -140,6 +142,10 @@
 
 	// section
 	--main-sec-bg: hsl(233, 20%, 8%);
+
+	// select
+	--select-bg: hsl(233, 20%, 8%);
+	--select-border: rgba(255, 255, 255, 0.08);
 }
 
 @layer base {
