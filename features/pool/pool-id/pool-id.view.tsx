@@ -22,7 +22,9 @@ function PoolIdView({ id }: { id: Web3Address }) {
 function PoolWrapper({ children }: { children: React.ReactNode }) {
 	const token = usePoolFormStore((state) => state.token);
 	return (
-		<WalletTokenProvider tokenAddress={token?.address}>
+		<WalletTokenProvider
+			tokenAddress={token?.address}
+			decimals={token?.decimals}>
 			{children}
 		</WalletTokenProvider>
 	);

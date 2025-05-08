@@ -13,6 +13,7 @@ function usePoolForm() {
 		isLoading: walletBalanceLoading,
 		formatted: formattedWalletBalance,
 		formattedNumber: formattedWalletBalanceNumber,
+		error: wE,
 	} = useWalletToken();
 
 	// Maximum amount for the slider (from wallet balance)
@@ -29,6 +30,15 @@ function usePoolForm() {
 		walletBalanceLoading,
 		walletBalanceError,
 	]);
+
+	console.log({
+		walletBalanceLoading,
+		walletBalanceError,
+		formattedWalletBalance,
+		formattedWalletBalanceNumber,
+		MAX_AMOUNT,
+		wE,
+	});
 
 	/**
 	 * Handle max button click
