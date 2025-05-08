@@ -4,4 +4,7 @@ export const APP_ROUTE = {
 	POOL: {
 		HOME: (id: string) => `/pool/${id}`,
 	},
+	DASHBOARD: {
+		HOME: '/dashboard',
+	},
 };
