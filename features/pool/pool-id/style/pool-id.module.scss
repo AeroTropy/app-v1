@@ -183,3 +183,21 @@
 		border-radius: 20px;
 	}
 }
+
+.depositCta {
+	width: 100%;
+	border-radius: 20px;
+	border: 1px solid rgba(255, 255, 255, 0.08);
+	height: 56px;
+	font-size: 14px;
+}
+
+.depositCtaBtn {
+	background-image: none !important;
+	background: var(--btn-secondary) !important;
+	border-radius: 20px;
+	border: 1px solid rgba(255, 255, 255, 0.08);
+	&:hover {
+		transform: none;
+	}
+}

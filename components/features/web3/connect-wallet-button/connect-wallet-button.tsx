@@ -20,16 +20,20 @@ import If from '@/components/utils/If';
 interface ConnectWalletButtonProps {
 	btnClassName?: string;
 	minimal?: boolean;
+	isParentWidth?: boolean;
 }
 
 function ConnectWalletButton({
 	btnClassName,
 	minimal,
+	isParentWidth = false,
 }: ConnectWalletButtonProps) {
 	return (
 		<div className={styles['connect-wallet-button-placeholder']}>
-			<Wallet>
-				<CustomConnectWalletButton btnClassName={btnClassName} />
+			<Wallet className={cn(isParentWidth && 'w-full')}>
+				<CustomConnectWalletButton
+					btnClassName={cn(btnClassName, { 'w-full': isParentWidth })}
+				/>
 				<CustomWalletDropdown minimal={minimal} />
 			</Wallet>
 		</div>

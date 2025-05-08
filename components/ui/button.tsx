@@ -24,7 +24,7 @@ const buttonVariants = cva(
 				outline:
 					'border border-button-outline-border bg-transparent text-button-outline-text hover:bg-accent hover:text-accent-foreground',
 				secondary:
-					'bg-button-secondary text-button-secondary-text hover:bg-button-secondary/80',
+					'!bg-btn-secondary !text-text-light hover:!bg-btn-secondary/50',
 				ghost: 'hover:bg-accent hover:text-accent-foreground',
 				link: 'text-primary underline-offset-4 hover:underline',
 				self: 'px-0',
@@ -107,6 +107,7 @@ export const Btn = {
 
 type ConnectedBtnProps = ButtonProps & {
 	showConnectButton?: boolean;
+	btnClassName?: string;
 };
 
 // Higher Order Component that adds wallet connection check
@@ -116,12 +117,18 @@ export const withWalletConnection = <P extends ConnectedBtnProps>(
 	const WithWalletConnection = ({
 		showConnectButton = false,
 		size = 'lg',
+		btnClassName,
 		...props
 	}: P) => {
 		const { isConnected } = useAccount();
 
 		if (showConnectButton && !isConnected) {
-			return <ConnectWalletButton />;
+			return (
+				<ConnectWalletButton
+					isParentWidth
+					btnClassName={btnClassName}
+				/>
+			);
 		}
 
 		return (

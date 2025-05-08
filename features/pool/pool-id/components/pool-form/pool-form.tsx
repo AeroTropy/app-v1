@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { Text } from '@/components/ui/typography/Text';
 import { cn } from '@/lib/utils';
 import { CustomInput } from '@/components/ui/input';
-import { Btn } from '@/components/ui/button';
+import { Btn, ConnectedBtn } from '@/components/ui/button';
 import usePoolForm from '../../hooks/usePoolForm';
 import { Skeleton } from '@/components/ui/skeleton';
 
@@ -131,6 +131,12 @@ function PoolForm() {
 					</div>
 				</div>
 			</div>
+			<ConnectedBtn.Secondary
+				showConnectButton
+				className={styles['depositCta']}
+				btnClassName={cn(styles['depositCtaBtn'], '!h-[56px] ')}>
+				Deposit
+			</ConnectedBtn.Secondary>
 		</div>
 	);
 }
