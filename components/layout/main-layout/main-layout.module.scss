@@ -30,6 +30,22 @@
 		color: #fff;
 		line-height: 100%;
 	}
+	.main-layout-header-right {
+		display: flex;
+		align-items: center;
+		gap: 16px;
+		.user-dashboard {
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+			background: rgba(255, 255, 255, 0.5);
+			backdrop-filter: blur(10px);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			cursor: pointer;
+		}
+	}
 }
 
 .bg {

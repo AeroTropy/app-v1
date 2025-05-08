@@ -1,0 +1,234 @@
+.dashboardView {
+  --primary-text-color: #fff;
+  --secondary-text-color: #aaabac;
+  --card-bg: #1e1e1e;
+  max-width: 1350px;
+  margin: 0 auto;
+  padding: 50px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  color: var(--primary-text-color);
+}
+
+.gradientText {
+  background: linear-gradient(to right, #fff, #8b8c8d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.dashboardHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  
+  &_title {
+    font-size: 72px;
+    font-weight: 500;
+    @extend .gradientText;
+  }
+  
+  &_description {
+    font-size: 16px;
+    color: var(--secondary-text-color);
+  }
+}
+
+.notConnected {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  min-height: 400px;
+  backdrop-filter: blur(20px);
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  
+  &_title {
+    font-size: 32px;
+    font-weight: 600;
+    @extend .gradientText;
+  }
+  
+  &_description {
+    font-size: 16px;
+    color: var(--secondary-text-color);
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  &_button {
+    margin-top: 16px;
+  }
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.statsCard {
+  backdrop-filter: blur(20px);
+  border-radius: 16px;
+  padding: 24px;
+  min-height: 120px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--card-bg);
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  }
+  
+  .cardContent {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+  }
+  
+  .cardTitle {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--secondary-text-color);
+    margin-bottom: 8px;
+  }
+  
+  .cardValue {
+    font-size: 32px;
+    font-weight: 600;
+    background: linear-gradient(to right, #fff, #8b8c8d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 0;
+  }
+}
+
+.poolsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  
+  &_title {
+    font-size: 24px;
+    font-weight: 600;
+    @extend .gradientText;
+  }
+}
+
+.poolsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.poolCard {
+  backdrop-filter: blur(20px);
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  
+  &_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    @media (max-width: 480px) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+  }
+  
+  &_title {
+    font-size: 24px;
+    font-weight: 600;
+    @extend .gradientText;
+  }
+  
+  &_risk {
+    font-size: 14px;
+    color: var(--secondary-text-color);
+    padding: 4px 12px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  &_stats {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    
+    &_item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      
+      &_label {
+        font-size: 12px;
+        color: var(--secondary-text-color);
+      }
+      
+      &_value {
+        font-size: 18px;
+        font-weight: 500;
+        color: var(--primary-text-color);
+      }
+    }
+  }
+  
+  &_actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 8px;
+  }
+  
+  &_withdraw {
+    padding: 8px 16px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--primary-text-color);
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateY(-2px);
+    }
+    
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+  }
+}
