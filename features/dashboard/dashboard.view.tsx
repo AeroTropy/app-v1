@@ -11,6 +11,7 @@ import { POOL_ADDRESSES, POOLS } from '@/constant/web3/address/pools.constant';
 import { POOL_INFO, PoolRisk } from '@/constant/data/pool-info.constant';
 import { usePoolStore } from '@/store/usePoolStore';
 import { useTransitionRouter } from 'next-view-transitions';
+import DashboardWithdraw from './components/dashboard-withdraw';
 
 function DashboardView() {
 	const { isConnected } = useWeb3User();
@@ -243,11 +244,11 @@ function ConnectedDashboard() {
 										Deposit
 									</Btn.Large>
 
-									<Btn.Large
-										className={cn(styles.poolCard_withdraw)}
-										disabled={pool.userInvestment <= 0}>
-										Withdraw
-									</Btn.Large>
+									<DashboardWithdraw
+										poolAddress={pool.address}
+										poolName={pool.name}
+										currentInvestment={pool.userInvestment}
+									/>
 								</div>
 							</div>
 						</div>
