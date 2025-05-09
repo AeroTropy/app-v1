@@ -103,6 +103,7 @@ export const Btn = {
 	Icon: createButtonVariant('primary', 'icon'),
 	Large: createButtonVariant('primary', 'lg'),
 	Self: createButtonVariant('self', 'self'),
+	SecondaryLarge: createButtonVariant('secondary', 'lg'),
 };
 
 type ConnectedBtnProps = ButtonProps & {

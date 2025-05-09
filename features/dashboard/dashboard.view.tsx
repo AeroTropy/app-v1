@@ -1,59 +1,16 @@
 'use client';
-import React from 'react';
+import React, { useMemo } from 'react';
 import styles from './dashboard.module.scss';
 import { useWeb3User } from '@/context/web3-user.context';
 import ConnectWalletButton from '@/components/features/web3/connect-wallet-button/connect-wallet-button';
 
 import { Btn } from '@/components/ui/button';
-
-import Link from 'next/link';
-import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { APP_ROUTE } from '@/constant/routes.constant';
-
-// Mock data for the dashboard
-const mockUserData = {
-	totalDeposit: 12580.45,
-	currentApr: 8.75,
-	pools: [
-		{
-			id: 'stable',
-			name: 'Stable Pool',
-			description: 'Low risk, stable returns',
-			risk: 'Low',
-			tvl: 5250000,
-			activeInvestors: 1250,
-			apr: 5.5,
-			userInvestment: 5000.25,
-			earned: 275.5,
-			logo: '/assets/tokens/usdc.svg',
-		},
-		{
-			id: 'balanced',
-			name: 'Balanced Pool',
-			description: 'Medium risk, balanced returns',
-			risk: 'Medium',
-			tvl: 8750000,
-			activeInvestors: 950,
-			apr: 8.75,
-			userInvestment: 7580.2,
-			earned: 663.25,
-			logo: '/assets/tokens/eth.svg',
-		},
-		{
-			id: 'growth',
-			name: 'Growth Pool',
-			description: 'Higher risk, potential for higher returns',
-			risk: 'High',
-			tvl: 3250000,
-			activeInvestors: 450,
-			apr: 12.5,
-			userInvestment: 0,
-			earned: 0,
-			logo: '/assets/tokens/wbtc.svg',
-		},
-	],
-};
+import { POOL_ADDRESSES, POOLS } from '@/constant/web3/address/pools.constant';
+import { POOL_INFO, PoolRisk } from '@/constant/data/pool-info.constant';
+import { usePoolStore } from '@/store/usePoolStore';
+import { useTransitionRouter } from 'next-view-transitions';
 
 function DashboardView() {
 	const { isConnected } = useWeb3User();
@@ -70,7 +27,7 @@ function DashboardView() {
 
 			{!isConnected ?
 				<NotConnectedView />
-			:	<ConnectedDashboard userData={mockUserData} />}
+			:	<ConnectedDashboard />}
 		</div>
 	);
 }
@@ -90,7 +47,79 @@ function NotConnectedView() {
 	);
 }
 
-function ConnectedDashboard({ userData }: { userData: typeof mockUserData }) {
+function ConnectedDashboard() {
+	const { poolDetails, userInvestments } = usePoolStore();
+	const router = useTransitionRouter();
+
+	// Calculate dashboard metrics
+	const dashboardData = useMemo(() => {
+		// Calculate total deposit
+		const totalDeposit = Object.values(userInvestments).reduce(
+			(sum, { investment }) => sum + investment,
+			0
+		);
+
+		// Calculate weighted average APR
+		let weightedAprSum = 0;
+		let totalInvestment = 0;
+
+		POOL_ADDRESSES.forEach((address) => {
+			const investment = userInvestments[address]?.investment || 0;
+			if (investment > 0) {
+				const apr = poolDetails[address]?.apr || 0;
+				weightedAprSum += investment * apr;
+				totalInvestment += investment;
+			}
+		});
+
+		const currentApr =
+			totalInvestment > 0 ? weightedAprSum / totalInvestment : 0;
+
+		// Count active pools
+		const activePools = Object.values(userInvestments).filter(
+			({ investment }) => investment > 0
+		).length;
+
+		return {
+			totalDeposit,
+			currentApr,
+			activePools,
+			totalPools: POOL_ADDRESSES.length,
+		};
+	}, [poolDetails, userInvestments]);
+
+	// Prepare pool data
+	const poolsData = useMemo(() => {
+		return POOL_ADDRESSES.map((address) => {
+			const poolInfo = POOL_INFO[address];
+			const poolStats = poolDetails[address];
+			const userInvestment = userInvestments[address] || {
+				investment: 0,
+				earned: 0,
+			};
+
+			// Find the pool id by matching the address
+			const pool = POOLS.find((p) => p.address === address);
+			const poolId =
+				pool ? pool.name.toLowerCase().replace(/\s+/g, '-') : '';
+
+			return {
+				id: poolId,
+				address,
+				name: poolInfo.name,
+				description: poolInfo.description,
+				risk:
+					poolInfo.risk === PoolRisk.HIGH ? 'High'
+					: poolInfo.risk === PoolRisk.MEDIUM ? 'Medium'
+					: 'Low',
+				tvl: poolStats.tvl,
+				activeInvestors: poolStats.activeInvestors,
+				apr: poolStats.apr,
+				userInvestment: userInvestment.investment,
+				earned: userInvestment.earned,
+			};
+		});
+	}, [poolDetails, userInvestments]);
 	return (
 		<>
 			{/* User Stats */}
@@ -99,7 +128,7 @@ function ConnectedDashboard({ userData }: { userData: typeof mockUserData }) {
 					<div className={styles.cardContent}>
 						<h3 className={styles.cardTitle}>Total Deposit</h3>
 						<p className={styles.cardValue}>
-							${userData.totalDeposit.toLocaleString()}
+							${dashboardData.totalDeposit.toLocaleString()}
 						</p>
 					</div>
 				</div>
@@ -107,7 +136,7 @@ function ConnectedDashboard({ userData }: { userData: typeof mockUserData }) {
 					<div className={styles.cardContent}>
 						<h3 className={styles.cardTitle}>Current APR</h3>
 						<p className={styles.cardValue}>
-							{userData.currentApr}%
+							{dashboardData.currentApr.toFixed(2)}%
 						</p>
 					</div>
 				</div>
@@ -115,12 +144,8 @@ function ConnectedDashboard({ userData }: { userData: typeof mockUserData }) {
 					<div className={styles.cardContent}>
 						<h3 className={styles.cardTitle}>Active Pools</h3>
 						<p className={styles.cardValue}>
-							{
-								userData.pools.filter(
-									(p) => p.userInvestment > 0
-								).length
-							}{' '}
-							/ {userData.pools.length}
+							{dashboardData.activePools} /{' '}
+							{dashboardData.totalPools}
 						</p>
 					</div>
 				</div>
@@ -130,21 +155,12 @@ function ConnectedDashboard({ userData }: { userData: typeof mockUserData }) {
 			<div className={styles.poolsSection}>
 				<div className={styles.poolsSection_title}>Your Pools</div>
 				<div className={styles.poolsList}>
-					{userData.pools.map((pool) => (
+					{poolsData.map((pool) => (
 						<div
 							key={pool.id}
 							className={styles.poolCard}>
 							<div className={styles.poolCard_header}>
 								<div className='flex items-center gap-3'>
-									{pool.logo && (
-										<Image
-											src={pool.logo}
-											alt={pool.name}
-											width={32}
-											height={32}
-											className='rounded-full'
-										/>
-									)}
 									<div className={styles.poolCard_title}>
 										{pool.name}
 									</div>
@@ -215,16 +231,23 @@ function ConnectedDashboard({ userData }: { userData: typeof mockUserData }) {
 
 							<div className={styles.poolCard_actions}>
 								<div className='flex gap-3'>
-									<Link href={APP_ROUTE.POOL.HOME(pool.id)}>
-										<Btn.Primary className='!h-[40px]'>
-											Deposit
-										</Btn.Primary>
-									</Link>
-									<button
+									<Btn.Large
+										className={cn(styles.poolCard_withdraw)}
+										onClick={() =>
+											router.push(
+												APP_ROUTE.POOL.HOME(
+													pool.address
+												)
+											)
+										}>
+										Deposit
+									</Btn.Large>
+
+									<Btn.Large
 										className={cn(styles.poolCard_withdraw)}
 										disabled={pool.userInvestment <= 0}>
 										Withdraw
-									</button>
+									</Btn.Large>
 								</div>
 							</div>
 						</div>
