@@ -4,12 +4,17 @@ import {
 	WALLET_CONNECT_PROJECT_ID,
 } from '@/constant/env.constant';
 import {
+	BASESCAN_SEPOLIA_TX_URL,
+	BASESCAN_TX_URL,
+} from '@/constant/url.constant';
+import {
 	DIAMOND_ADDRESS_MAINNET,
 	DIAMOND_ADDRESS_TESTNET,
 	INTERMEDIATE_ADDRESS_MAINNET,
 	INTERMEDIATE_ADDRESS_TESTNET,
 } from '@/constant/web3/web3-address.constant';
 import { ChainNetwork } from '@/types/web3/enums/common';
+import { Web3Address } from '@/types/web3/web3.types';
 import { http } from 'viem';
 import { base, baseSepolia } from 'viem/chains';
 
@@ -122,6 +127,12 @@ class Web3DataProvider {
 	 */
 	get intermediateAddress(): string {
 		return this.config.intermediateAddress;
+	}
+
+	viewInExplorer(hash: Web3Address) {
+		return (
+			(this.isMainnet ? BASESCAN_TX_URL : BASESCAN_SEPOLIA_TX_URL) + hash
+		);
 	}
 }
 
