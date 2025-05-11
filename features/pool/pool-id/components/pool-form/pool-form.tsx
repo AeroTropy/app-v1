@@ -16,15 +16,17 @@ function PoolForm() {
 		setToken,
 		token,
 		assetAmount,
-		formattedWalletBalance,
-		isFormDisabled,
 		handleAmountChange,
 		handleMaxClick,
+		formattedWalletBalance,
+		isFormDisabled,
 		walletBalanceLoading,
 		isConnected,
 		isAmountValid,
-		isFormValid,
 		isSelectDisabled,
+		handleDeposit,
+		isButtonDisabled,
+		getDepositButtonText,
 	} = usePoolForm();
 
 	const renderTokenOption = (option: StandardToken, isSelected: boolean) => {
@@ -143,14 +145,9 @@ function PoolForm() {
 				showConnectButton
 				className={styles['depositCta']}
 				btnClassName={cn(styles['depositCtaBtn'], '!h-[56px] ')}
-				disabled={!isFormValid}>
-				{!token ?
-					'Select Token'
-				: assetAmount && !isAmountValid ?
-					parseFloat(assetAmount) > 0 && formattedWalletBalance ?
-						'Exceeds Balance'
-					:	'Enter Valid Amount'
-				:	'Deposit'}
+				disabled={isButtonDisabled}
+				onClick={handleDeposit}>
+				{getDepositButtonText()}
 			</ConnectedBtn.Secondary>
 		</div>
 	);

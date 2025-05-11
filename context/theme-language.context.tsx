@@ -48,7 +48,7 @@ export const ThemeAndLanguageProvider = ({
 				className={`app-theme antialiased`}>
 				{children}
 				<Toaster
-					theme={theme}
+					theme={'dark'}
 					closeButton
 					duration={5000}
 					position='bottom-right'
