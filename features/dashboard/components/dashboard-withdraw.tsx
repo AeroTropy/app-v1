@@ -83,17 +83,8 @@ const WithdrawButton = () => {
 		setIsLoading,
 		setTransactionStatus,
 		closeModal,
-	} = useWithdrawModalStore((state) => ({
-		poolAddress: state.poolAddress,
-		withdrawAmount: state.withdrawAmount,
-		currentInvestment: state.currentInvestment,
-		setIsLoading: state.setIsLoading,
-		setTransactionStatus: state.setTransactionStatus,
-		closeModal: state.closeModal,
-	}));
-	const { updateUserInvestment } = usePoolStore((state) => ({
-		updateUserInvestment: state.updateUserInvestment,
-	}));
+	} = useWithdrawModalStore((state) => state);
+	const { updateUserInvestment } = usePoolStore();
 
 	const [isDisabled, setIsDisabled] = useState(true);
 
@@ -154,12 +145,7 @@ const WithdrawButton = () => {
 // Withdraw dialog content component
 const WithdrawDialogContent = () => {
 	const { isOpen, poolName, closeModal, transactionStatus } =
-		useWithdrawModalStore((state) => ({
-			isOpen: state.isOpen,
-			poolName: state.poolName,
-			closeModal: state.closeModal,
-			transactionStatus: state.transactionStatus,
-		}));
+		useWithdrawModalStore((state) => state);
 
 	return (
 		<Dialog
@@ -231,9 +217,7 @@ const DashboardWithdrawContainer = ({
 	poolName,
 	currentInvestment,
 }: DashboardWithdrawProps) => {
-	const { openModal } = useWithdrawModalStore((state) => ({
-		openModal: state.openModal,
-	}));
+	const { openModal } = useWithdrawModalStore((state) => state);
 	return (
 		<Dialog>
 			<DialogTrigger asChild>

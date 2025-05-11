@@ -12,7 +12,10 @@ interface PoolState {
 	userInvestments: Record<string, UserInvestment>;
 	setPoolDetails: (poolDetails: PoolState['poolDetails']) => void;
 	setUserInvestments: (userInvestments: PoolState['userInvestments']) => void;
-	updateUserInvestment: (address: string, data: Partial<UserInvestment>) => void;
+	updateUserInvestment: (
+		address: string,
+		data: Partial<UserInvestment>
+	) => void;
 }
 
 const initialPoolState = {
@@ -45,14 +48,14 @@ export const usePoolStore = create<PoolState>((set) => ({
 	userInvestments: initialPoolState.userInvestments,
 	setPoolDetails: (poolDetails) => set({ poolDetails }),
 	setUserInvestments: (userInvestments) => set({ userInvestments }),
-	updateUserInvestment: (address, data) => 
+	updateUserInvestment: (address, data) =>
 		set((state) => ({
 			userInvestments: {
 				...state.userInvestments,
 				[address]: {
 					...state.userInvestments[address],
-					...data
-				}
-			}
-		}))
+					...data,
+				},
+			},
+		})),
 }));
