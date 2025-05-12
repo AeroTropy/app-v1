@@ -132,7 +132,11 @@ function usePoolForm() {
 			setIsLoading(true);
 
 			// Create token model and get approval parameters
-			const tokenModel = new TokenModel(token.address, token.decimals);
+			const tokenModel = new TokenModel(
+				token.address,
+				token.decimals,
+				token.tokenId
+			);
 			const approveParams = tokenModel.getApproveParams({
 				amount: assetAmount,
 				spender: poolAddress,
@@ -193,7 +197,11 @@ function usePoolForm() {
 			setTransactionStatus(TransactionStatus.TRANSACTION_PROCESSING);
 
 			// Create models for the deposit
-			const tokenModel = new TokenModel(token.address, token.decimals);
+			const tokenModel = new TokenModel(
+				token.address,
+				token.decimals,
+				token.tokenId
+			);
 			const poolManager = new PoolManagerModel(poolAddress);
 
 			// Get deposit parameters

@@ -17,13 +17,19 @@ export class TokenModel {
 	private decimals: number;
 
 	/**
+	 * The token id
+	 */
+	private tokenId: Web3Address;
+
+	/**
 	 * Create a new TokenModel instance
 	 * @param address The token address
 	 * @param decimals The token decimals
 	 */
-	constructor(address: Web3Address, decimals: number) {
+	constructor(address: Web3Address, decimals: number, tokenId: Web3Address) {
 		this.address = address;
 		this.decimals = decimals;
+		this.tokenId = tokenId;
 	}
 
 	/**
@@ -80,5 +86,9 @@ export class TokenModel {
 	 */
 	getDecimals(): number {
 		return this.decimals;
+	}
+
+	getTokenId(): Web3Address {
+		return this.tokenId;
 	}
 }

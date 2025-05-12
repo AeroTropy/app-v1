@@ -6,7 +6,15 @@ export type StandardToken = {
 	symbol: string;
 	decimals: number;
 	logo: string;
+	tokenId: Web3Address;
 };
+
+const TOKEN_IDS: Web3Address[] = [
+	'0x0ff4c36ad67d4e64a903f59070a76e0bf836e7db',
+	'0x54e98382b0e5e1260a6c458ea38acb2f5fc5c705',
+	'0x16f869dc5bfe8dfb239bdd2774876f3dadd934cd',
+	'0xa91e0f6d622108a97df116a6ea5b5687034fb39e',
+];
 
 export const TOKENS: StandardToken[] = [
 	{
@@ -15,6 +23,7 @@ export const TOKENS: StandardToken[] = [
 		symbol: 'WETH',
 		decimals: 18,
 		logo: 'https://img.cryptorank.io/coins/weth1701090834118.png',
+		tokenId: TOKEN_IDS[0],
 	},
 	{
 		address: '0x54e98382b0e5E1260a6C458Ea38ACB2f5Fc5c705',
@@ -22,6 +31,7 @@ export const TOKENS: StandardToken[] = [
 		symbol: 'USDC',
 		decimals: 6,
 		logo: 'https://img.cryptorank.io/coins/usd%20coin1634317395959.png',
+		tokenId: TOKEN_IDS[1],
 	},
 	{
 		address: '0x16f869dc5BfE8dfB239BDd2774876f3daDD934cD',
@@ -29,6 +39,7 @@ export const TOKENS: StandardToken[] = [
 		symbol: 'DAI',
 		decimals: 18,
 		logo: 'https://img.cryptorank.io/coins/multi-collateral-dai1574400689822.png',
+		tokenId: TOKEN_IDS[2],
 	},
 	{
 		address: '0xa91e0f6d622108a97df116A6eA5b5687034Fb39e',
@@ -36,5 +47,6 @@ export const TOKENS: StandardToken[] = [
 		symbol: 'USDT',
 		decimals: 6,
 		logo: 'https://img.cryptorank.io/coins/tether1645007690922.png',
+		tokenId: TOKEN_IDS[3],
 	},
 ];

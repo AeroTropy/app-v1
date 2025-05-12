@@ -39,7 +39,7 @@ export class PoolManagerModel {
 			address: this.poolAddress,
 			abi: poolAbi as Abi,
 			functionName: 'deposit',
-			args: [token.getAddress(), amountInWei, receiver],
+			args: [token.getTokenId(), amountInWei, receiver],
 		};
 	}
 }
