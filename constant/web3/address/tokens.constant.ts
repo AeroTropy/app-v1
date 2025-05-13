@@ -6,15 +6,10 @@ export type StandardToken = {
 	symbol: string;
 	decimals: number;
 	logo: string;
-	tokenId: Web3Address;
+	tokenId: bigint;
 };
 
-const TOKEN_IDS: Web3Address[] = [
-	'0x0ff4c36ad67d4e64a903f59070a76e0bf836e7db',
-	'0x54e98382b0e5e1260a6c458ea38acb2f5fc5c705',
-	'0x16f869dc5bfe8dfb239bdd2774876f3dadd934cd',
-	'0xa91e0f6d622108a97df116a6ea5b5687034fb39e',
-];
+const TOKEN_IDS: bigint[] = [BigInt(1), BigInt(2), BigInt(3), BigInt(4)];
 
 export const TOKENS: StandardToken[] = [
 	{

@@ -1,5 +1,5 @@
 import poolAbi from '@/web3/abi/pool.abi.json';
-import { Abi } from 'viem';
+import { Abi, parseEther } from 'viem';
 import { Web3Address } from '@/types/web3/web3.types';
 import { TokenModel } from './token.model';
 
@@ -40,6 +40,7 @@ export class PoolManagerModel {
 			abi: poolAbi as Abi,
 			functionName: 'deposit',
 			args: [token.getTokenId(), amountInWei, receiver],
+			value: parseEther('0'),
 		};
 	}
 }
