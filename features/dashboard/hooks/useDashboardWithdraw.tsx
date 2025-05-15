@@ -1,5 +1,8 @@
-import { useState, useEffect } from 'react';
-import { useWithdrawModalStore, WithdrawTransactionStatus } from '../store/withdraw-modal.store';
+import { useState, useEffect, useMemo } from 'react';
+import {
+	useWithdrawModalStore,
+	WithdrawTransactionStatus,
+} from '../store/withdraw-modal.store';
 import { usePoolStore } from '@/store/usePoolStore';
 
 function useDashboardWithdraw() {
@@ -9,7 +12,9 @@ function useDashboardWithdraw() {
 		currentInvestment,
 		setIsLoading,
 		setTransactionStatus,
+		transactionStatus,
 		closeModal,
+		selectedToken,
 	} = useWithdrawModalStore((state) => state);
 	const { updateUserInvestment } = usePoolStore();
 
@@ -21,9 +26,10 @@ function useDashboardWithdraw() {
 		setIsDisabled(
 			numAmount <= 0 ||
 				numAmount > currentInvestment ||
-				withdrawAmount === ''
+				withdrawAmount === '' ||
+				selectedToken === null
 		);
-	}, [withdrawAmount, currentInvestment]);
+	}, [withdrawAmount, currentInvestment, selectedToken]);
 
 	// Handle withdraw action
 	const handleWithdraw = async () => {
@@ -58,6 +64,40 @@ function useDashboardWithdraw() {
 		}
 	};
 
+	// Determine button text based on transaction status and validation
+	const buttonText = useMemo(() => {
+		// If we're in a transaction process
+		if (transactionStatus === WithdrawTransactionStatus.PROCESSING) {
+			return 'Processing...';
+		}
+
+		// If the transaction failed
+		if (transactionStatus === WithdrawTransactionStatus.FAILED) {
+			return 'Try Again';
+		}
+
+		// If the transaction succeeded
+		if (transactionStatus === WithdrawTransactionStatus.SUCCESS) {
+			return 'Success!';
+		}
+
+		// Validation states
+		if (withdrawAmount === '') {
+			return 'Enter Amount';
+		}
+
+		if (parseFloat(withdrawAmount) <= 0) {
+			return 'Invalid Amount';
+		}
+
+		if (parseFloat(withdrawAmount) > currentInvestment) {
+			return 'Insufficient Balance';
+		}
+
+		// Default state - ready to withdraw
+		return 'Withdraw';
+	}, [withdrawAmount, currentInvestment, transactionStatus]);
+
 	return {
 		poolAddress,
 		withdrawAmount,
@@ -66,7 +106,9 @@ function useDashboardWithdraw() {
 		setTransactionStatus,
 		closeModal,
 		isDisabled,
-		handleWithdraw
+		handleWithdraw,
+		buttonText,
+		selectedToken,
 	};
 }
 

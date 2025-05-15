@@ -32,6 +32,7 @@ const WithdrawInput = () => {
 	const setWithdrawAmount = useWithdrawModalStore(
 		(state) => state.setWithdrawAmount
 	);
+	const selectedToken = useWithdrawModalStore((state) => state.selectedToken);
 
 	// Handle input change with validation
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,6 +57,7 @@ const WithdrawInput = () => {
 		<div className={styles.inputContainer}>
 			<div className={styles.inputWrapper}>
 				<input
+					disabled={!selectedToken}
 					type='text'
 					value={withdrawAmount}
 					onChange={handleInputChange}
@@ -63,6 +65,7 @@ const WithdrawInput = () => {
 					className={styles.input}
 				/>
 				<button
+					disabled={!selectedToken}
 					onClick={handleSetMax}
 					className={styles.maxButton}>
 					MAX
@@ -77,14 +80,14 @@ const WithdrawInput = () => {
 
 // Withdraw button component
 const WithdrawButton = () => {
-	const { isDisabled, handleWithdraw } = useDashboardWithdraw();
+	const { isDisabled, handleWithdraw, buttonText } = useDashboardWithdraw();
 
 	return (
 		<Btn.Secondary
 			className={cn(styles.withdrawButton, isDisabled && styles.disabled)}
 			disabled={isDisabled}
 			onClick={handleWithdraw}>
-			Withdraw
+			{buttonText}
 		</Btn.Secondary>
 	);
 };
