@@ -1,11 +1,17 @@
 .dialogContent {
-	background: rgba(30, 30, 30, 0.8) !important;
+	background: rgba(10, 9, 9, 0.8) !important;
 	backdrop-filter: blur(20px) !important;
 	border-radius: 16px !important;
-	border: 1px solid rgba(255, 255, 255, 0.1) !important;
+	border: 1px solid rgba(111, 111, 111, 0.1) !important;
 	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
 	color: white !important;
 	padding: 24px !important;
+	transform: translate(-50%, -50%);
+
+	// Hide the close button
+	& > button {
+		display: none !important;
+	}
 }
 
 .dialogTitle {
@@ -24,7 +30,7 @@
 .inputSection {
 	display: flex;
 	flex-direction: column;
-	gap: 8px;
+	gap: 16px;
 
 	label {
 		font-size: 0.9rem;
@@ -40,7 +46,6 @@
 
 .inputWrapper {
 	display: flex;
-	background: rgba(20, 20, 20, 0.6);
 	border: 1px solid rgba(255, 255, 255, 0.1);
 	border-radius: 8px;
 	overflow: hidden;
@@ -61,19 +66,25 @@
 }
 
 .maxButton {
-	background: rgba(60, 60, 60, 0.5);
+	background: rgba(40, 40, 40, 0.6);
+	color: white;
 	border: none;
-	color: #ccc;
-	padding: 0 16px;
+	padding: 0 12px;
 	font-size: 0.8rem;
 	font-weight: 600;
 	cursor: pointer;
-	transition: background-color 0.2s;
+	transition: all 0.2s ease;
 
 	&:hover {
-		background: rgba(80, 80, 80, 0.5);
-		color: white;
+		background: rgba(60, 60, 60, 0.8);
 	}
+}
+
+.tokenSelectorContainer {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	margin-bottom: 8px;
 }
 
 .balanceInfo {
@@ -87,6 +98,7 @@
 .withdrawButton {
 	width: 100%;
 	height: 48px !important;
+	border: 1px solid rgba(255, 255, 255, 0.1);
 
 	&.disabled {
 		opacity: 0.5;
@@ -117,4 +129,9 @@
 		color: #dc3545;
 		border: 1px solid rgba(220, 53, 69, 0.2);
 	}
+}
+
+.tokenSelector {
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	height: 48px;
 }

@@ -1,4 +1,5 @@
 'use client';
+import { StandardToken } from '@/constant/web3/address/tokens.constant';
 import { Web3Address } from '@/types/web3/web3.types';
 import { createContext, useContext, useRef } from 'react';
 import { create, useStore } from 'zustand';
@@ -17,6 +18,7 @@ interface WithdrawModalState {
 	poolAddress: Web3Address | null;
 	poolName: string;
 	currentInvestment: number;
+	selectedToken: StandardToken | null;
 	withdrawAmount: string;
 	isLoading: boolean;
 	transactionStatus: WithdrawTransactionStatus;
@@ -32,6 +34,7 @@ interface WithdrawModalState {
 	setIsLoading: (isLoading: boolean) => void;
 	setTransactionStatus: (status: WithdrawTransactionStatus) => void;
 	reset: () => void;
+	setSelectedToken: (token: StandardToken) => void;
 }
 
 const initialState = {
@@ -42,6 +45,7 @@ const initialState = {
 	withdrawAmount: '',
 	isLoading: false,
 	transactionStatus: WithdrawTransactionStatus.IDLE,
+	selectedToken: null,
 };
 
 // Create a Zustand store
@@ -61,6 +65,7 @@ const createWithdrawModalStore = () =>
 		setIsLoading: (isLoading) => set({ isLoading }),
 		setTransactionStatus: (status) => set({ transactionStatus: status }),
 		reset: () => set(initialState),
+		setSelectedToken: (token) => set({ selectedToken: token }),
 	}));
 
 // Create a React context for the store

@@ -1,12 +1,10 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { usePoolStore } from '@/store/usePoolStore';
+import React from 'react';
 import { Web3Address } from '@/types/web3/web3.types';
-import {
-	useWithdrawModalStore,
-	WithdrawTransactionStatus,
-} from '../store/withdraw-modal.store';
+import { useWithdrawModalStore } from '../store/withdraw-modal.store';
+import { SingleSelect } from '@/components/ui/select/single-select';
+import { TOKENS, StandardToken } from '@/constant/web3/address/tokens.constant';
 import { Btn } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import styles from './dashboard-withdraw.module.scss';
@@ -19,6 +17,9 @@ import {
 } from '@/components/ui/dialog';
 import { DialogTrigger } from '@/components/ui/dialog';
 import { WithdrawModalProvider } from '../store/withdraw-modal.store';
+import useDashboardWithdraw from '../hooks/useDashboardWithdraw';
+import Image from 'next/image';
+import { Text } from '@/components/ui/typography/Text';
 
 // Input component for the withdraw amount
 const WithdrawInput = () => {
@@ -76,124 +77,109 @@ const WithdrawInput = () => {
 
 // Withdraw button component
 const WithdrawButton = () => {
-	const {
-		poolAddress,
-		withdrawAmount,
-		currentInvestment,
-		setIsLoading,
-		setTransactionStatus,
-		closeModal,
-	} = useWithdrawModalStore((state) => state);
-	const { updateUserInvestment } = usePoolStore();
-
-	const [isDisabled, setIsDisabled] = useState(true);
-
-	// Validate withdraw amount
-	useEffect(() => {
-		const numAmount = parseFloat(withdrawAmount || '0');
-		setIsDisabled(
-			numAmount <= 0 ||
-				numAmount > currentInvestment ||
-				withdrawAmount === ''
-		);
-	}, [withdrawAmount, currentInvestment]);
-
-	// Handle withdraw action
-	const handleWithdraw = async () => {
-		if (!poolAddress || isDisabled) return;
-
-		try {
-			setIsLoading(true);
-			setTransactionStatus(WithdrawTransactionStatus.PROCESSING);
-
-			// Simulate transaction delay
-			await new Promise((resolve) => setTimeout(resolve, 2000));
-
-			// Update user investment in the store
-			const withdrawValue = parseFloat(withdrawAmount);
-			const remainingInvestment = currentInvestment - withdrawValue;
-
-			// Update the store with new investment amount
-			updateUserInvestment(poolAddress, {
-				investment: remainingInvestment,
-			});
-
-			setTransactionStatus(WithdrawTransactionStatus.SUCCESS);
-
-			// Close modal after successful transaction
-
-			closeModal();
-			setTransactionStatus(WithdrawTransactionStatus.IDLE);
-		} catch (error) {
-			console.error('Withdraw failed:', error);
-			setTransactionStatus(WithdrawTransactionStatus.FAILED);
-		} finally {
-			setIsLoading(false);
-		}
-	};
+	const { isDisabled, handleWithdraw } = useDashboardWithdraw();
 
 	return (
-		<Btn.Primary
+		<Btn.Secondary
 			className={cn(styles.withdrawButton, isDisabled && styles.disabled)}
 			disabled={isDisabled}
 			onClick={handleWithdraw}>
 			Withdraw
-		</Btn.Primary>
+		</Btn.Secondary>
+	);
+};
+
+// Token selector component
+const TokenSelector = () => {
+	const selectedToken = useWithdrawModalStore((state) => state.selectedToken);
+	const setSelectedToken = useWithdrawModalStore(
+		(state) => state.setSelectedToken
+	);
+
+	const handleTokenChange = (_: Web3Address, token: StandardToken) => {
+		setSelectedToken(token);
+	};
+
+	const renderTokenOption = (option: StandardToken, isSelected: boolean) => {
+		return (
+			<div
+				className={cn(
+					`flex items-center gap-2 px-3 py-2 rounded-lg ${isSelected ? 'bg-bg-negative/10' : 'hover:bg-bg-negative'}`
+				)}>
+				<Image
+					src={option.logo}
+					alt={option.symbol}
+					className='rounded-full'
+					width={18}
+					height={18}
+				/>
+				<Text.Regular14 variant={'light'}>
+					{option.symbol}
+				</Text.Regular14>
+			</div>
+		);
+	};
+
+	const renderTokenValue = (selectedOption: StandardToken | null) => {
+		if (!selectedOption) return null;
+		return (
+			<div className='flex flex-col gap-1'>
+				<div className='flex items-center gap-2'>
+					<Image
+						src={selectedOption.logo}
+						alt={selectedOption.symbol}
+						className='rounded-full'
+						width={18}
+						height={18}
+					/>
+					<Text.Medium14
+						variant='light'
+						textWeight='semibold'>
+						{selectedOption.symbol}
+					</Text.Medium14>
+				</div>
+			</div>
+		);
+	};
+
+	return (
+		<div className={styles.tokenSelectorContainer}>
+			<label>Select token</label>
+			<SingleSelect
+				options={TOKENS}
+				value={selectedToken}
+				valueKey='address'
+				labelKey='symbol'
+				placeholder='Select token'
+				renderOption={renderTokenOption}
+				renderValue={renderTokenValue}
+				onChange={handleTokenChange}
+				className={styles.tokenSelector}
+			/>
+		</div>
 	);
 };
 
 // Withdraw dialog content component
 const WithdrawDialogContent = () => {
-	const { isOpen, poolName, closeModal, transactionStatus } =
-		useWithdrawModalStore((state) => state);
-
 	return (
-		<Dialog
-			open={isOpen}
-			onOpenChange={(open) => !open && closeModal()}>
-			<DialogContent className={styles.dialogContent}>
-				<DialogHeader>
-					<DialogTitle className={styles.dialogTitle}>
-						Withdraw from {poolName}
-					</DialogTitle>
-				</DialogHeader>
+		<DialogContent className={styles.dialogContent}>
+			<DialogHeader>
+				<DialogTitle className={styles.dialogTitle}>
+					Withdraw
+				</DialogTitle>
+			</DialogHeader>
 
-				<div className={styles.inputSection}>
-					<label>Amount to withdraw</label>
-					<WithdrawInput />
-				</div>
+			<div className={styles.inputSection}>
+				<TokenSelector />
+				<label>Amount to withdraw</label>
+				<WithdrawInput />
+			</div>
 
-				{transactionStatus !== WithdrawTransactionStatus.IDLE && (
-					<div
-						className={cn(
-							styles.transactionStatus,
-							transactionStatus ===
-								WithdrawTransactionStatus.PROCESSING &&
-								styles.processing,
-							transactionStatus ===
-								WithdrawTransactionStatus.SUCCESS &&
-								styles.success,
-							transactionStatus ===
-								WithdrawTransactionStatus.FAILED &&
-								styles.failed
-						)}>
-						{transactionStatus ===
-							WithdrawTransactionStatus.PROCESSING &&
-							'Processing withdrawal...'}
-						{transactionStatus ===
-							WithdrawTransactionStatus.SUCCESS &&
-							'Withdrawal successful!'}
-						{transactionStatus ===
-							WithdrawTransactionStatus.FAILED &&
-							'Withdrawal failed. Please try again.'}
-					</div>
-				)}
-
-				<DialogFooter className={styles.dialogFooter}>
-					<WithdrawButton />
-				</DialogFooter>
-			</DialogContent>
-		</Dialog>
+			<DialogFooter className={styles.dialogFooter}>
+				<WithdrawButton />
+			</DialogFooter>
+		</DialogContent>
 	);
 };
 
@@ -217,9 +203,13 @@ const DashboardWithdrawContainer = ({
 	poolName,
 	currentInvestment,
 }: DashboardWithdrawProps) => {
-	const { openModal } = useWithdrawModalStore((state) => state);
+	const { openModal, isOpen, closeModal } = useWithdrawModalStore(
+		(state) => state
+	);
 	return (
-		<Dialog>
+		<Dialog
+			open={isOpen}
+			onOpenChange={(open) => !open && closeModal()}>
 			<DialogTrigger asChild>
 				<Btn.SecondaryLarge
 					className={cn('!h-[40px]')}
