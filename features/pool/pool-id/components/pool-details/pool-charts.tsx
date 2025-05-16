@@ -48,12 +48,12 @@ function PoolCharts({
 	// Function to generate consistent colors based on token pairs
 	const getPoolColor = (token0: string, token1: string) => {
 		const colors = [
-			'#FF6384',
-			'#36A2EB',
-			'#FFCE56',
-			'#4BC0C0',
-			'#9966FF',
-			'#FF9F40',
+			'#992777',
+			'#B0348B',
+			'#CC9C7B',
+			'#5C4990',
+			'#FCFCFC',
+			'#ffd7b2',
 		];
 		const combinedTokens = `${token0}-${token1}`;
 
@@ -319,17 +319,17 @@ function PoolCharts({
 										<Legend />
 										<Bar
 											dataKey='apr'
-											fill='#82ca9d'
+											fill='#902579'
 											name='APR (%)'
 										/>
 										<Bar
 											dataKey='volatility'
-											fill='#ff7a7a'
+											fill='#CD9C7B'
 											name='Volatility'
 										/>
 										<Bar
 											dataKey='sharpeRatio'
-											fill='#8884d8'
+											fill='#7F669C'
 											name='Sharpe Ratio'
 										/>
 									</BarChart>
