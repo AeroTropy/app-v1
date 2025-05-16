@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import React, { useEffect, useMemo, useCallback, useRef } from 'react';
 import { useChat } from '@ai-sdk/react';
@@ -20,15 +21,9 @@ interface TransactionData {
 	from?: string;
 }
 
-// Add TypeScript declaration for window.ethereum
-interface EthereumProvider {
-	request: (args: { method: string; params?: unknown[] }) => Promise<unknown>;
-	isMetaMask?: boolean;
-}
-
 declare global {
 	interface Window {
-		ethereum?: EthereumProvider;
+		ethereum?: any;
 		latestTransaction?: TransactionData;
 		executeTransaction?: () => TransactionData;
 		sendTransactionToMetaMask?: (
