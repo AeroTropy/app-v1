@@ -33,6 +33,7 @@
 		"clsx": "^2.1.1",
 		"cookies-next": "^5.1.0",
 		"framer-motion": "^12.7.3",
+		"install": "^0.13.0",
 		"lenis": "^1.2.3",
 		"lucide-react": "^0.511.0",
 		"marked": "^15.0.11",
