@@ -4,12 +4,14 @@ import { Web3Address } from '@/types/web3/web3.types';
 import { notFound } from 'next/navigation';
 import React from 'react';
 
-async function page({ params }: { params: { id: Web3Address } }) {
+export default async function page({
+	params,
+}: {
+	params: Promise<{ id: string }>;
+}) {
 	const { id } = await params;
-	if (POOL_ADDRESSES.includes(id)) {
-		return <PoolIdView id={id} />;
+	if (POOL_ADDRESSES.includes(id as Web3Address)) {
+		return <PoolIdView id={id as Web3Address} />;
 	}
 	return notFound();
 }
-
-export default page;
