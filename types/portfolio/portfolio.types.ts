@@ -39,6 +39,7 @@ export interface PortfolioPool {
 	pool: PoolInfo;
 	tokenBalances: TokenBalance[];
 	totalValueUSD: string;
+	hasInvestment: boolean;
 }
 
 /**

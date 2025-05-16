@@ -60,7 +60,8 @@ const createWithdrawModalStore = (tokenBalance: TokenBalance[]) =>
 				poolAddress,
 				poolName,
 				currentInvestment,
-				withdrawAmount: currentInvestment.toString(), // Default to full amount
+				withdrawAmount: '',
+				transactionStatus: WithdrawTransactionStatus.IDLE,
 			}),
 		closeModal: () => set({ isOpen: false }),
 		setWithdrawAmount: (amount) => set({ withdrawAmount: amount }),

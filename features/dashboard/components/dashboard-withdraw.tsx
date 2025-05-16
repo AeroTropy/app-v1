@@ -2,7 +2,10 @@
 
 import React from 'react';
 import { Web3Address } from '@/types/web3/web3.types';
-import { useWithdrawModalStore } from '../store/withdraw-modal.store';
+import {
+	useWithdrawModalStore,
+	WithdrawTransactionStatus,
+} from '../store/withdraw-modal.store';
 import { SingleSelect } from '@/components/ui/select/single-select';
 import { Btn } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -23,9 +26,6 @@ import { TokenBalance } from '@/types/portfolio/portfolio.types';
 
 // Input component for the withdraw amount
 const WithdrawInput = () => {
-	const currentInvestment = useWithdrawModalStore(
-		(state) => state.currentInvestment
-	);
 	const withdrawAmount = useWithdrawModalStore(
 		(state) => state.withdrawAmount
 	);
@@ -40,9 +40,14 @@ const WithdrawInput = () => {
 
 		// Allow empty string or valid numbers
 		if (value === '' || /^\d*\.?\d*$/.test(value)) {
-			// Ensure amount doesn't exceed current investment
-			const numValue = parseFloat(value || '0');
-			if (numValue <= currentInvestment) {
+			// Ensure amount doesn't exceed token balance
+			if (selectedToken) {
+				const numValue = parseFloat(value || '0');
+				const maxAmount = parseFloat(selectedToken.balance);
+				if (numValue <= maxAmount) {
+					setWithdrawAmount(value);
+				}
+			} else {
 				setWithdrawAmount(value);
 			}
 		}
@@ -50,7 +55,9 @@ const WithdrawInput = () => {
 
 	// Set max amount
 	const handleSetMax = () => {
-		setWithdrawAmount(currentInvestment.toString());
+		if (selectedToken) {
+			setWithdrawAmount(selectedToken.balance);
+		}
 	};
 
 	return (
@@ -72,7 +79,9 @@ const WithdrawInput = () => {
 				</button>
 			</div>
 			<div className={styles.balanceInfo}>
-				Available: ${currentInvestment.toLocaleString()}
+				{selectedToken ?
+					<>Available: {selectedToken.formattedBalance} </>
+				:	<>Select a token to view balance</>}
 			</div>
 		</div>
 	);
@@ -166,8 +175,17 @@ const TokenSelector = () => {
 
 // Withdraw dialog content component
 const WithdrawDialogContent = () => {
+	const { transactionStatus } = useWithdrawModalStore((state) => state);
 	return (
-		<DialogContent className={styles.dialogContent}>
+		<DialogContent
+			className={styles.dialogContent}
+			onInteractOutside={(e) => {
+				if (
+					transactionStatus === WithdrawTransactionStatus.PROCESSING
+				) {
+					e.preventDefault();
+				}
+			}}>
 			<DialogHeader>
 				<DialogTitle className={styles.dialogTitle}>
 					Withdraw
