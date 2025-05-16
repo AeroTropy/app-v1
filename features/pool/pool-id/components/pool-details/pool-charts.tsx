@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { PoolData, PoolStrategy } from '@/types/web3/pool.types';
 import { usePoolStore } from '@/store/usePoolStore';
 import React, { useState, useMemo } from 'react';
@@ -106,7 +107,7 @@ function PoolCharts({ poolStats }: { poolStats?: PoolStrategy }) {
 	}, [poolStats, isPoolDetailsLoading]);
 
 	// Custom active shape for pie chart
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 	const renderActiveShape = (props: any) => {
 		const RADIAN = Math.PI / 180;
 		const {
@@ -252,7 +253,6 @@ function PoolCharts({ poolStats }: { poolStats?: PoolStrategy }) {
 											)}
 										</Pie>
 										<Tooltip
-											// eslint-disable-next-line @typescript-eslint/no-explicit-any
 											formatter={(value: any) => [
 												`$${formatNumber(value)}`,
 												'TVL',
@@ -289,6 +289,12 @@ function PoolCharts({ poolStats }: { poolStats?: PoolStrategy }) {
 										/>
 										<YAxis />
 										<Tooltip
+											contentStyle={{
+												backgroundColor:
+													'rgba(0, 0, 0, 0.8)',
+												color: '#fff',
+												borderRadius: '8px',
+											}}
 											formatter={(
 												value: string,
 												name: string
