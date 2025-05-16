@@ -289,23 +289,6 @@ function ConnectedDashboard() {
 												className={
 													styles.poolCard_stats_item_label
 												}>
-												Earned
-											</div>
-											<div
-												className={
-													styles.poolCard_stats_item_value
-												}>
-												${pool.earned.toLocaleString()}
-											</div>
-										</div>
-										<div
-											className={
-												styles.poolCard_stats_item
-											}>
-											<div
-												className={
-													styles.poolCard_stats_item_label
-												}>
 												APR
 											</div>
 											<div
