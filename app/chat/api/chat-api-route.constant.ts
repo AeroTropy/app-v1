@@ -2,6 +2,7 @@ import { AgentKit } from '@coinbase/agentkit';
 import { getVercelAITools } from '@coinbase/agentkit-vercel-ai-sdk';
 import { google } from '@ai-sdk/google';
 import { anthropic } from '@ai-sdk/anthropic';
+import { openai } from '@ai-sdk/openai';
 import { ViemWalletProvider } from '@coinbase/agentkit';
 import { base } from 'viem/chains';
 import { createWalletClient, http } from 'viem';
@@ -31,6 +32,7 @@ export const getAgentKitTool = async ({ address }: { address?: string }) => {
 const VERCEL_SELECTED_MODEL = process.env.VERCEL_AI_MODEL || 'google';
 
 const VERCEL_MODELS = {
+	openai: openai('gpt-4o-mini'),
 	google: google('gemini-2.5-pro-exp-03-25'),
 	anthropic: anthropic('claude-3-7-sonnet-20250219'),
 };

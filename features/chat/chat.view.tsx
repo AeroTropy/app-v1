@@ -45,7 +45,9 @@ const ChatView: React.FC = () => {
 	useEffect(() => {
 		if (error) {
 			toast.error(
-				typeof error === 'string' ? error : error.message || 'An error occurred'
+				typeof error === 'string' ? error : (
+					error.message || 'An error occurred'
+				)
 			);
 		}
 	}, [error]);
@@ -58,8 +60,6 @@ const ChatView: React.FC = () => {
 					isLoading={isLoading}
 				/>
 			</div>
-
-
 
 			<form
 				className={styles.chatForm}
