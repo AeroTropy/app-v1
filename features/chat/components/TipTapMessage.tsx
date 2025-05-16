@@ -1,6 +1,7 @@
-'use client';
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from 'react';
+'use client';
+
+import React, { useEffect, useRef } from 'react';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import styles from '../chat.module.scss';
@@ -13,7 +14,7 @@ import Image from 'next/image';
 import ToolRenderer from '@/components/tools/tool-renderer';
 import { TOOL_NAME } from '@/constant/tools/tool.constant';
 import ConnectWalletButton from '@/components/features/web3/connect-wallet-button/connect-wallet-button';
-
+import { marked } from 'marked';
 interface TipTapMessageProps {
 	message: Message;
 	className?: string;
@@ -25,17 +26,29 @@ const TipTapMessage: React.FC<TipTapMessageProps> = ({
 	className,
 	isLoading = false,
 }) => {
+	// Use a ref instead of state to track the previous content
+	const prevContentRef = useRef<string>('');
+
 	const editor = useEditor({
 		extensions: [StarterKit],
-		content: message.content,
+		content: message.content || '',
 		editable: false,
-		immediatelyRender: false,
+		immediatelyRender: true,
 	});
 
+	const markdownToHtml = (markdown: string) => {
+		return marked(markdown, {
+			breaks: true,
+			gfm: true,
+			async: false,
+		});
+	};
+
 	useEffect(() => {
-		if (editor) {
-			console.log(message.content);
-			editor.commands.setContent(message.content);
+		if (editor && message.content !== prevContentRef.current) {
+			// Only update if content has changed
+			editor.commands.setContent(markdownToHtml(message.content));
+			prevContentRef.current = message.content;
 		}
 	}, [message.content]);
 
