@@ -1,5 +1,6 @@
 'use client';
-import { StandardToken } from '@/constant/web3/address/tokens.constant';
+
+import { TokenBalance } from '@/types/portfolio/portfolio.types';
 import { Web3Address } from '@/types/web3/web3.types';
 import { createContext, useContext, useRef } from 'react';
 import { create, useStore } from 'zustand';
@@ -18,11 +19,11 @@ interface WithdrawModalState {
 	poolAddress: Web3Address | null;
 	poolName: string;
 	currentInvestment: number;
-	selectedToken: StandardToken | null;
+	selectedToken: TokenBalance | null;
 	withdrawAmount: string;
 	isLoading: boolean;
 	transactionStatus: WithdrawTransactionStatus;
-
+	tokenBalance: TokenBalance[];
 	// Actions
 	openModal: (
 		poolAddress: Web3Address,
@@ -34,7 +35,7 @@ interface WithdrawModalState {
 	setIsLoading: (isLoading: boolean) => void;
 	setTransactionStatus: (status: WithdrawTransactionStatus) => void;
 	reset: () => void;
-	setSelectedToken: (token: StandardToken) => void;
+	setSelectedToken: (token: TokenBalance) => void;
 }
 
 const initialState = {
@@ -49,9 +50,10 @@ const initialState = {
 };
 
 // Create a Zustand store
-const createWithdrawModalStore = () =>
+const createWithdrawModalStore = (tokenBalance: TokenBalance[]) =>
 	create<WithdrawModalState>((set) => ({
 		...initialState,
+		tokenBalance,
 		openModal: (poolAddress, poolName, currentInvestment) =>
 			set({
 				isOpen: true,
@@ -76,10 +78,12 @@ const WithdrawModalStoreContext = createContext<ReturnType<
 // Provider component
 interface WithdrawModalProviderProps {
 	children: React.ReactNode;
+	tokenBalance: TokenBalance[];
 }
 
 export const WithdrawModalProvider = ({
 	children,
+	tokenBalance,
 }: WithdrawModalProviderProps) => {
 	const storeRef = useRef<ReturnType<typeof createWithdrawModalStore> | null>(
 		null
@@ -87,7 +91,7 @@ export const WithdrawModalProvider = ({
 
 	// Create the store if it doesn't exist
 	if (!storeRef.current) {
-		storeRef.current = createWithdrawModalStore();
+		storeRef.current = createWithdrawModalStore(tokenBalance);
 	}
 
 	return (

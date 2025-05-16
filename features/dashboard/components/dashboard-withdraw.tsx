@@ -4,7 +4,6 @@ import React from 'react';
 import { Web3Address } from '@/types/web3/web3.types';
 import { useWithdrawModalStore } from '../store/withdraw-modal.store';
 import { SingleSelect } from '@/components/ui/select/single-select';
-import { TOKENS, StandardToken } from '@/constant/web3/address/tokens.constant';
 import { Btn } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import styles from './dashboard-withdraw.module.scss';
@@ -20,6 +19,7 @@ import { WithdrawModalProvider } from '../store/withdraw-modal.store';
 import useDashboardWithdraw from '../hooks/useDashboardWithdraw';
 import Image from 'next/image';
 import { Text } from '@/components/ui/typography/Text';
+import { TokenBalance } from '@/types/portfolio/portfolio.types';
 
 // Input component for the withdraw amount
 const WithdrawInput = () => {
@@ -98,39 +98,40 @@ const TokenSelector = () => {
 	const setSelectedToken = useWithdrawModalStore(
 		(state) => state.setSelectedToken
 	);
+	const tokenBalance = useWithdrawModalStore((state) => state.tokenBalance);
 
-	const handleTokenChange = (_: Web3Address, token: StandardToken) => {
+	const handleTokenChange = (_: Web3Address, token: TokenBalance) => {
 		setSelectedToken(token);
 	};
 
-	const renderTokenOption = (option: StandardToken, isSelected: boolean) => {
+	const renderTokenOption = (option: TokenBalance, isSelected: boolean) => {
 		return (
 			<div
 				className={cn(
 					`flex items-center gap-2 px-3 py-2 rounded-lg ${isSelected ? 'bg-bg-negative/10' : 'hover:bg-bg-negative'}`
 				)}>
 				<Image
-					src={option.logo}
-					alt={option.symbol}
+					src={option.token.logo}
+					alt={option.token.symbol}
 					className='rounded-full'
 					width={18}
 					height={18}
 				/>
 				<Text.Regular14 variant={'light'}>
-					{option.symbol}
+					{option.token.symbol}
 				</Text.Regular14>
 			</div>
 		);
 	};
 
-	const renderTokenValue = (selectedOption: StandardToken | null) => {
+	const renderTokenValue = (selectedOption: TokenBalance | null) => {
 		if (!selectedOption) return null;
 		return (
 			<div className='flex flex-col gap-1'>
 				<div className='flex items-center gap-2'>
 					<Image
-						src={selectedOption.logo}
-						alt={selectedOption.symbol}
+						src={selectedOption.token.logo}
+						alt={selectedOption.token.symbol}
 						className='rounded-full'
 						width={18}
 						height={18}
@@ -138,7 +139,7 @@ const TokenSelector = () => {
 					<Text.Medium14
 						variant='light'
 						textWeight='semibold'>
-						{selectedOption.symbol}
+						{selectedOption.token.symbol}
 					</Text.Medium14>
 				</div>
 			</div>
@@ -149,9 +150,9 @@ const TokenSelector = () => {
 		<div className={styles.tokenSelectorContainer}>
 			<label>Select token</label>
 			<SingleSelect
-				options={TOKENS}
+				options={tokenBalance}
 				value={selectedToken}
-				valueKey='address'
+				valueKey='token.address'
 				labelKey='symbol'
 				placeholder='Select token'
 				renderOption={renderTokenOption}
@@ -191,11 +192,12 @@ interface DashboardWithdrawProps {
 	poolAddress: Web3Address;
 	poolName: string;
 	currentInvestment: number;
+	tokenBalance: TokenBalance[];
 }
 
 const DashboardWithdraw: React.FC<DashboardWithdrawProps> = (props) => {
 	return (
-		<WithdrawModalProvider>
+		<WithdrawModalProvider tokenBalance={props.tokenBalance}>
 			<DashboardWithdrawContainer {...props} />
 		</WithdrawModalProvider>
 	);
