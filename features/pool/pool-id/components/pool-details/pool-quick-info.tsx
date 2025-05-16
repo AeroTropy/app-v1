@@ -1,4 +1,3 @@
-import { PoolInfo } from '@/constant/data/pool-info.constant';
 import { usePoolStore } from '@/store/usePoolStore';
 import { PoolStrategy } from '@/types/web3/pool.types';
 import React, { useMemo } from 'react';
@@ -10,7 +9,11 @@ function PoolQuickInfo({
 	poolInfo,
 	poolStats,
 }: {
-	poolInfo: PoolInfo;
+	poolInfo: {
+		name?: string;
+		description?: string;
+		risk?: string;
+	};
 	poolStats?: PoolStrategy;
 }) {
 	const { isPoolDetailsLoading } = usePoolStore();
@@ -19,11 +22,11 @@ function PoolQuickInfo({
 		return [
 			{
 				title: 'TVL',
-				value: isPoolDetailsLoading
-					? 'Loading...'
-					: poolStats?.tvl
-					? Number(poolStats.tvl).formatWithSuffix() + '+'
-					: '2.5K+',
+				value:
+					isPoolDetailsLoading ? 'Loading...'
+					: poolStats?.tvl ?
+						Number(poolStats.tvl).formatWithSuffix() + '+'
+					:	'2.5K+',
 			},
 			{
 				title: 'Active Investors',
@@ -31,11 +34,11 @@ function PoolQuickInfo({
 			},
 			{
 				title: 'APR',
-				value: isPoolDetailsLoading
-					? 'Loading...'
-					: poolStats?.averageApr
-					? poolStats.averageApr.toFixed(2) + '%'
-					: 'N/A',
+				value:
+					isPoolDetailsLoading ? 'Loading...'
+					: poolStats?.averageApr ?
+						poolStats.averageApr.toFixed(2) + '%'
+					:	'N/A',
 			},
 			{
 				title: 'Risk Type',

@@ -2,7 +2,6 @@
 import React from 'react';
 import styles from '../../style/pool-id.module.scss';
 import { usePoolFormStore } from '../../store/pool-form.store';
-import { POOL_INFO } from '@/constant/data/pool-info.constant';
 import { usePoolStore } from '@/store/usePoolStore';
 import PoolQuickInfo from './pool-quick-info';
 import PoolSecurity from './pool-security';
@@ -10,7 +9,12 @@ import PoolCharts from './pool-charts';
 function PoolDetails() {
 	const poolId = usePoolFormStore((state) => state.poolId);
 	const { poolDetails } = usePoolStore();
-	const poolInfo = POOL_INFO[poolId];
+	const currentPool = poolDetails?.[poolId];
+	const poolInfo = {
+		name: currentPool?.name,
+		description: currentPool?.description,
+		risk: currentPool?.riskLevel,
+	};
 
 	return (
 		<div className={styles.poolDetails}>
@@ -25,10 +29,7 @@ function PoolDetails() {
 					poolInfo={poolInfo}
 					poolStats={poolDetails?.[poolId]}
 				/>
-				<PoolCharts
-					poolInfo={poolInfo}
-					poolStats={poolDetails?.[poolId]}
-				/>
+				<PoolCharts poolStats={poolDetails?.[poolId]} />
 			</div>
 			<PoolSecurity />
 		</div>

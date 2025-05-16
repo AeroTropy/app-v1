@@ -1,4 +1,3 @@
-import { PoolInfo } from '@/constant/data/pool-info.constant';
 import { PoolData, PoolStrategy } from '@/types/web3/pool.types';
 import { usePoolStore } from '@/store/usePoolStore';
 import React, { useState, useMemo } from 'react';
@@ -18,14 +17,7 @@ import {
 } from 'recharts';
 import styles from '../../style/pool-id.module.scss';
 
-function PoolCharts({
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	poolInfo,
-	poolStats,
-}: {
-	poolInfo: PoolInfo;
-	poolStats?: PoolStrategy;
-}) {
+function PoolCharts({ poolStats }: { poolStats?: PoolStrategy }) {
 	const { isPoolDetailsLoading } = usePoolStore();
 	const [activePieIndex, setActivePieIndex] = useState(0);
 	const [activePool, setActivePool] = useState<string | null>(null);
