@@ -1,5 +1,6 @@
 import { PoolInfo } from '@/constant/data/pool-info.constant';
-import { PoolStats } from '@/types/web3/pool.types';
+import { usePoolStore } from '@/store/usePoolStore';
+import { PoolStrategy } from '@/types/web3/pool.types';
 import React, { useMemo } from 'react';
 import styles from '../../style/pool-id.module.scss';
 import '@prototype/number.prototype';
@@ -10,28 +11,39 @@ function PoolQuickInfo({
 	poolStats,
 }: {
 	poolInfo: PoolInfo;
-	poolStats: PoolStats;
+	poolStats?: PoolStrategy;
 }) {
+	const { isPoolDetailsLoading } = usePoolStore();
+
 	const poolMap = useMemo(() => {
 		return [
 			{
 				title: 'TVL',
-				value: poolStats.tvl.formatWithSuffix() + '+',
+				value: isPoolDetailsLoading
+					? 'Loading...'
+					: poolStats?.tvl
+					? Number(poolStats.tvl).formatWithSuffix() + '+'
+					: '2.5K+',
 			},
 			{
 				title: 'Active Investors',
-				value: poolStats.activeInvestors.formatWithSuffix() + '+',
+				value: isPoolDetailsLoading ? 'Loading...' : '1000+',
 			},
 			{
 				title: 'APR',
-				value: poolStats.apr + '%',
+				value: isPoolDetailsLoading
+					? 'Loading...'
+					: poolStats?.averageApr
+					? poolStats.averageApr.toFixed(2) + '%'
+					: 'N/A',
 			},
 			{
 				title: 'Risk Type',
 				value: poolInfo.risk,
 			},
 		];
-	}, [poolStats, poolInfo]);
+	}, [poolStats, poolInfo, isPoolDetailsLoading]);
+
 	return (
 		<div className={styles.poolQuickInfo}>
 			<div className={styles.poolQuickInfoGrid}>

@@ -5,6 +5,7 @@ import HomeHero from './components/home-hero';
 import HomeSecondSection from './components/home-second-section';
 import { useScroll } from 'framer-motion';
 import ChatInputWrapper from '@/components/container/chat-input/chat-input-wrapper';
+import PoolDataFetcher from '@/components/data-fetcher/pool-data-fetcher';
 
 function HomeView() {
 	const containerRef = useRef<HTMLDivElement>(null);
@@ -15,6 +16,7 @@ function HomeView() {
 
 	return (
 		<>
+			<PoolDataFetcher />
 			<div
 				className='relative h-[200vh]'
 				ref={containerRef}>

@@ -23,25 +23,33 @@ function PoolCardAction({
 	address: Web3Address;
 	poolInfo: PoolInfo;
 }) {
-	const { poolDetails } = usePoolStore();
-	const poolStats = poolDetails[address];
+	const { poolDetails, isPoolDetailsLoading } = usePoolStore();
+	const poolStats = poolDetails?.[address];
 	const router = useTransitionRouter();
 
 	const poolMap = useMemo(() => {
 		return [
 			{
 				title: 'TVL',
-				value: poolStats.tvl.formatWithSuffix() + '+',
+				value:
+					isPoolDetailsLoading ? 'Loading...'
+					: poolStats?.tvl ?
+						Number(poolStats.tvl).formatWithSuffix() + '+'
+					:	'2.5K+',
 				I: CurrencyDollar,
 			},
 			{
 				title: 'Active Investors',
-				value: poolStats.activeInvestors.formatWithSuffix() + '+',
+				value: isPoolDetailsLoading ? 'Loading...' : '1000+',
 				I: UsersThree,
 			},
 			{
 				title: 'APR',
-				value: poolStats.apr + '%',
+				value:
+					isPoolDetailsLoading ? 'Loading...'
+					: poolStats?.averageApr ?
+						poolStats.averageApr.toFixed(2) + '%'
+					:	'N/A',
 				I: TrendUp,
 			},
 			{
@@ -50,7 +58,7 @@ function PoolCardAction({
 				I: Pulse,
 			},
 		];
-	}, [poolStats, poolInfo]);
+	}, [poolStats, poolInfo, isPoolDetailsLoading]);
 
 	const handlePoolClick = () => {
 		router.push(APP_ROUTE.POOL.HOME(address));
@@ -63,7 +71,13 @@ function PoolCardAction({
 			<PoolCardBgWrapper />
 			<div className={styles.aprCon}>
 				<p>APR</p>
-				<p className={styles.aprText}>{poolStats.apr}</p>
+				<p className={styles.aprText}>
+					{isPoolDetailsLoading ?
+						'...'
+					: poolStats?.averageApr ?
+						Math.floor(poolStats.averageApr)
+					:	'N/A'}
+				</p>
 				<p>%</p>
 			</div>
 			<div className={styles.heading}>{poolInfo.name}</div>

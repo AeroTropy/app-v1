@@ -3,7 +3,6 @@ import {
 	useWithdrawModalStore,
 	WithdrawTransactionStatus,
 } from '../store/withdraw-modal.store';
-import { usePoolStore } from '@/store/usePoolStore';
 import { PoolManagerModel } from '@/lib/model/pool-manager.model';
 import { TokenModel } from '@/lib/model/token.model';
 import { useAccount, useWriteContract } from 'wagmi';
@@ -23,7 +22,6 @@ function useDashboardWithdraw() {
 		closeModal,
 		selectedToken,
 	} = useWithdrawModalStore((state) => state);
-	const { updateUserInvestment } = usePoolStore();
 	const { address: walletAddress } = useAccount();
 	const { writeContractAsync, isPending } = useWriteContract();
 	const { getPortfolioData } = useUserPortfolio();
@@ -93,18 +91,6 @@ function useDashboardWithdraw() {
 			// Execute the withdraw transaction
 			const txHash = await writeContractAsync(withdrawParams);
 			console.log('Withdraw transaction submitted:', txHash);
-
-			// Update user investment in the store
-			const withdrawValue = parseFloat(withdrawAmount);
-			const remainingInvestment = Math.max(
-				0,
-				currentInvestment - withdrawValue
-			);
-
-			// Update the store with new investment amount
-			updateUserInvestment(poolAddress, {
-				investment: remainingInvestment,
-			});
 
 			setTransactionStatus(WithdrawTransactionStatus.SUCCESS);
 

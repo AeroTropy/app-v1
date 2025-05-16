@@ -10,4 +10,7 @@ export const ENDPOINTS = {
 		GET: (walletAddress: Web3Address) =>
 			`${BE_URL}/v1/dashboard/balances/${walletAddress}`,
 	},
+	POOL: {
+		DETAILS: `${BE_URL}/v1/uniswap/cache/summary`,
+	},
 };

@@ -1,5 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { POOL_ADDRESSES } from '@/constant/web3/address/pools.constant';
-import { PoolStats } from '@/types/web3/pool.types';
+import { fetchPoolSummary } from '@/lib/services/pool.service';
+import {
+	PoolRiskLevel,
+	PoolStrategies,
+	PoolStrategy,
+} from '@/types/web3/pool.types';
 import { create } from 'zustand';
 
 export interface UserInvestment {
@@ -7,55 +13,52 @@ export interface UserInvestment {
 	earned: number;
 }
 
-interface PoolState {
-	poolDetails: Record<string, PoolStats>;
-	userInvestments: Record<string, UserInvestment>;
-	setPoolDetails: (poolDetails: PoolState['poolDetails']) => void;
-	setUserInvestments: (userInvestments: PoolState['userInvestments']) => void;
-	updateUserInvestment: (
-		address: string,
-		data: Partial<UserInvestment>
-	) => void;
-}
-
-const initialPoolState = {
-	poolDetails: {
-		[POOL_ADDRESSES[0]]: {
-			apr: 36,
-			tvl: 100000,
-			activeInvestors: 100,
-		},
-		[POOL_ADDRESSES[1]]: {
-			apr: 24,
-			tvl: 2500000,
-			activeInvestors: 100,
-		},
-		[POOL_ADDRESSES[2]]: {
-			apr: 12,
-			tvl: 500000,
-			activeInvestors: 100,
-		},
-	},
-	userInvestments: {
-		[POOL_ADDRESSES[0]]: { investment: 0, earned: 0 },
-		[POOL_ADDRESSES[1]]: { investment: 7580.2, earned: 663.25 },
-		[POOL_ADDRESSES[2]]: { investment: 5000.25, earned: 275.5 },
-	},
+const poolTypeAddressMap = {
+	[PoolRiskLevel.HIGH]: POOL_ADDRESSES[0],
+	[PoolRiskLevel.MEDIUM]: POOL_ADDRESSES[1],
+	[PoolRiskLevel.LOW]: POOL_ADDRESSES[2],
 };
 
-export const usePoolStore = create<PoolState>((set) => ({
-	poolDetails: initialPoolState.poolDetails,
-	userInvestments: initialPoolState.userInvestments,
+interface PoolState {
+	poolDetails: Record<string, PoolStrategy> | null;
+	lastUpdatedTS: number | null;
+	isPoolDetailsLoading: boolean;
+	setPoolDetails: (poolDetails: PoolState['poolDetails']) => void;
+	getPoolDetails: () => Promise<void>;
+}
+
+export const usePoolStore = create<PoolState>((set, get) => ({
+	poolDetails: null,
+	lastUpdatedTS: null,
+	isPoolDetailsLoading: false,
 	setPoolDetails: (poolDetails) => set({ poolDetails }),
-	setUserInvestments: (userInvestments) => set({ userInvestments }),
-	updateUserInvestment: (address, data) =>
-		set((state) => ({
-			userInvestments: {
-				...state.userInvestments,
-				[address]: {
-					...state.userInvestments[address],
-					...data,
+	getPoolDetails: async () => {
+		const { lastUpdatedTS } = get();
+		if (lastUpdatedTS) {
+			const timeDiff = Date.now() - lastUpdatedTS;
+			if (timeDiff < 5 * 60 * 1000) {
+				return;
+			}
+		}
+
+		try {
+			const poolDetails = await fetchPoolSummary();
+			const sanitizedData = Object.entries(
+				poolDetails?.strategies || {}
+			).reduce(
+				(acc, [key, value]) => {
+					acc[poolTypeAddressMap[key as PoolRiskLevel]] = value;
+					return acc;
 				},
-			},
-		})),
+				{} as Record<string, PoolStrategy>
+			);
+			set({
+				poolDetails: sanitizedData,
+				lastUpdatedTS: poolDetails?.timestamp,
+				isPoolDetailsLoading: false,
+			});
+		} catch (error) {
+			set({ isPoolDetailsLoading: false });
+		}
+	},
 }));

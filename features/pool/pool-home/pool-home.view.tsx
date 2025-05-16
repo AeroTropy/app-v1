@@ -4,22 +4,26 @@ import PoolCardAction from '@/features/home/components/pools/pool-card-action';
 import { POOL_INFO } from '@/constant/data/pool-info.constant';
 import React from 'react';
 import styles from './pool-home.module.scss';
+import PoolDataFetcher from '@/components/data-fetcher/pool-data-fetcher';
 
 function PoolHomeView() {
 	return (
-		<div className={styles.poolCon}>
-			{POOL_ADDRESSES.map((address) => (
-				<div
-					key={address}
-					className={styles.poolCard}>
-					<PoolCardAction
+		<>
+			<PoolDataFetcher />
+			<div className={styles.poolCon}>
+				{POOL_ADDRESSES.map((address) => (
+					<div
 						key={address}
-						address={address}
-						poolInfo={POOL_INFO[address]}
-					/>
-				</div>
-			))}
-		</div>
+						className={styles.poolCard}>
+						<PoolCardAction
+							key={address}
+							address={address}
+							poolInfo={POOL_INFO[address]}
+						/>
+					</div>
+				))}
+			</div>
+		</>
 	);
 }
 

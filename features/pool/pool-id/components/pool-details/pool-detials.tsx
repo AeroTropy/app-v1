@@ -8,7 +8,7 @@ import PoolQuickInfo from './pool-quick-info';
 import PoolSecurity from './pool-security';
 function PoolDetails() {
 	const poolId = usePoolFormStore((state) => state.poolId);
-	const { poolDetails: poolStats } = usePoolStore();
+	const { poolDetails } = usePoolStore();
 	const poolInfo = POOL_INFO[poolId];
 
 	return (
@@ -22,7 +22,7 @@ function PoolDetails() {
 				</div>
 				<PoolQuickInfo
 					poolInfo={poolInfo}
-					poolStats={poolStats[poolId]}
+					poolStats={poolDetails?.[poolId]}
 				/>
 			</div>
 			<PoolSecurity />

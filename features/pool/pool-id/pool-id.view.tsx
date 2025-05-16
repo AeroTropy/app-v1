@@ -6,16 +6,21 @@ import PoolDetails from './components/pool-details/pool-detials';
 import PoolForm from './components/pool-form/pool-form';
 import { Web3Address } from '@/types/web3/web3.types';
 import { WalletTokenProvider } from '@/context/wallet-token-provider';
+import PoolDataFetcher from '@/components/data-fetcher/pool-data-fetcher';
+
 function PoolIdView({ id }: { id: Web3Address }) {
 	return (
-		<PoolFormProvider poolId={id}>
-			<PoolWrapper>
-				<div className={styles.poolIdView}>
-					<PoolDetails />
-					<PoolForm />
-				</div>
-			</PoolWrapper>
-		</PoolFormProvider>
+		<>
+			<PoolDataFetcher />
+			<PoolFormProvider poolId={id}>
+				<PoolWrapper>
+					<div className={styles.poolIdView}>
+						<PoolDetails />
+						<PoolForm />
+					</div>
+				</PoolWrapper>
+			</PoolFormProvider>
+		</>
 	);
 }
 
