@@ -287,10 +287,6 @@ const ChatView: React.FC = () => {
 
 						// Check if we need to approve
 						if (currentAllowance < BigInt(1)) {
-							toast.info(
-								`Approving ${transData.tokenSymbol || 'tokens'} for deposit...`
-							);
-
 							// Send approval transaction
 							const approveTx = await tokenContract.approve(
 								transData.to,
